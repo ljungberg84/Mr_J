@@ -50,11 +50,17 @@ public class ViaplayParser extends ServiceParser {
                             until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='submit']")));
             searchButton.click();
 
+//            WebElement movieNode = new WebDriverWait(browser, 2).
+//                                  until(ExpectedConditions.presenceOfElementLocated(By.xpath(
+//                                  "//a[contains(@href, '" + movieTitle.replace(' ','-') + "')]")));
+
             WebElement movieNode = new WebDriverWait(browser, 2).
-                                  until(ExpectedConditions.presenceOfElementLocated(By.xpath(
-                                  "//a[contains(@href, '" + movieTitle.replace(' ','-') + "')]")));
+                    until(ExpectedConditions.presenceOfElementLocated(By.xpath(
+                            "//a[contains(@href, '" + movieTitle.replace(' ','-') + "')]")));
 
             String url = movieNode.getAttribute("href");
+            if (url.substring(7, 18).equalsIgnoreCase("kundservice"))
+                throw new TimeoutException();
 //            System.out.println(url);
 //            System.out.println(url.length());
 //            System.out.println("--------------------------");
@@ -65,7 +71,7 @@ public class ViaplayParser extends ServiceParser {
             return new MovieInfo(movieTitle, url,"Viaplay");
 
         } catch (TimeoutException e) {
-            System.out.println(movieTitle + " was not found on Viaplay");
+            //System.out.println(movieTitle + " was not found on Viaplay");
             //e.printStackTrace();
 
         } catch (Exception e) {
@@ -73,7 +79,7 @@ public class ViaplayParser extends ServiceParser {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }finally {
-            browser.close();
+            //browser.close();
         }
         return null;
     }

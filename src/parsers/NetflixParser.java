@@ -58,7 +58,7 @@ public class NetflixParser extends ServiceParser {
             return new MovieInfo(movieNode.getAttribute("aria-label"), url, "Netflix");
 
         }catch(TimeoutException e){
-            System.out.println(movieTitle + " was not found on Netflix");
+            //System.out.println(movieTitle + " was not found on Netflix");
             //e.printStackTrace();
 
         }catch(Exception e){

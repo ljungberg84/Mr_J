@@ -20,13 +20,13 @@ public abstract class ServiceParser implements Parsable {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.rootUrl = rootUrl;
         this.options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
 
         //set preferences to not load images
         //--------------------------------------------------
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
-        options.setExperimentalOption("prefs", prefs);
+        //options.setExperimentalOption("prefs", prefs);
         //--------------------------------------------------
     }
 
