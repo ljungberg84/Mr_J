@@ -1,4 +1,8 @@
 package model;
 
-public class Account {
+import parsers.MovieInfo;
+import parsers.ServiceParser;
+
+public abstract class Account {
+
 }

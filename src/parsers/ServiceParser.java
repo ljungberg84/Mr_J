@@ -4,6 +4,7 @@ import model.Program;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.File;
 import java.util.HashMap;
 
 
@@ -14,19 +15,21 @@ public abstract class ServiceParser implements Parsable {
     protected ChromeOptions options;
     protected String driverPath = ""; // driver path needs to be specified
     protected MovieInfo hit;
+    protected File file = new File("cookies.data");
+
 
 
     public ServiceParser(String rootUrl) {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.rootUrl = rootUrl;
         this.options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
 
         //set preferences to not load images
         //--------------------------------------------------
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
-        options.setExperimentalOption("prefs", prefs);
+        //options.setExperimentalOption("prefs", prefs);
         //--------------------------------------------------
     }
 
@@ -35,6 +38,10 @@ public abstract class ServiceParser implements Parsable {
         this.browser = new ChromeDriver(options);
         Thread thread = new Thread(()-> Program.addHit(runScript(movieTitle)));
         thread.start();
+    }
+
+    public void loadCookies(){
+
     }
 
     protected abstract MovieInfo runScript(String movieTitle);
