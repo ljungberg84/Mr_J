@@ -21,33 +21,33 @@ public class Program {
 
     public void start(String searchText){
         int hitCount;
-        while(true){
-            hits.clear();
-            hitCount = 0;
+
+        hits.clear();
+        hitCount = 0;
 //            System.out.println("Enter movie title to search for:");
 //            String movieTitle = sc.nextLine();
 //            if (movieTitle.equalsIgnoreCase("quit"))
 //                System.exit(0);
-            for (Parsable service : services.values()) {
-                service.parse(searchText);
-            }
-            //main thread sleeps to make sure results populate list before printout
-            //here we could use listener on 'List<MovieInfo>hits' to update javafx element without having to use sleep
-            try {
-                Thread.sleep(10000);
-            }catch(InterruptedException e){
+        for (Parsable service : services.values()) {
+            service.parse(searchText);
+        }
+        //main thread sleeps to make sure results populate list before printout
+        //here we could use listener on 'List<MovieInfo>hits' to update javafx element without having to use sleep
+        try {
+            Thread.sleep(10000);
+        }catch(InterruptedException e){
 
-            }
-            for (MovieInfo movie: hits) {
-                if(movie != null){
-                    System.out.println(movie.getTitle() +" : " + movie.getUrl() + " : " + movie.getSource());
-                    hitCount ++;
-                }
-            }
-            if (hitCount == 0){
-                System.out.println("Sorry, " + searchText + " was not found on any streaming platform");
+        }
+        for (MovieInfo movie: hits) {
+            if(movie != null){
+                System.out.println(movie.getTitle() +" : " + movie.getUrl() + " : " + movie.getSource());
+                hitCount ++;
             }
         }
+        if (hitCount == 0){
+            System.out.println("Sorry, " + searchText + " was not found on any streaming platform");
+        }
+
     }
 
     public void addService(String name, Parsable service){

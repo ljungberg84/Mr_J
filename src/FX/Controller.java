@@ -51,7 +51,9 @@ public class Controller {
 
     @FXML
     public void search(){
-        p.start(search.getText());
+        Thread searchThread = new Thread(()->p.start(search.getText()));
+        searchThread.start();
+
     }
 
 
