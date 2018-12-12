@@ -20,8 +20,10 @@ public class Program {
     }
 
     public void start(){
+        int hitCount;
         while(true){
             hits.clear();
+            hitCount = 0;
             System.out.println("Enter movie title to search for:");
             String movieTitle = sc.nextLine();
             if (movieTitle.equalsIgnoreCase("quit"))
@@ -36,14 +38,16 @@ public class Program {
             }catch(InterruptedException e){
 
             }
-            System.out.println(hits.size());
             for (MovieInfo movie: hits) {
                 if(movie != null){
                     System.out.println(movie.getTitle() +" : " + movie.getUrl() + " : " + movie.getSource());
+                    hitCount ++;
                 }
             }
+            if (hitCount == 0){
+                System.out.println("Sorry, " + movieTitle + " was not found on any streaming platform");
+            }
         }
-
     }
 
     public void addService(String name, Parsable service){

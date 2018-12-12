@@ -32,7 +32,7 @@ public class HboParser extends ServiceParser {
             return new MovieInfo(movieNode.getAttribute("aria-label"), url, "HBO Nordic");
 
         }catch(TimeoutException e){
-            System.out.println(movieTitle + " was not found on HBO nordic");
+            //System.out.println(movieTitle + " was not found on HBO nordic");
             //e.printStackTrace();
 
         }catch(Exception e){

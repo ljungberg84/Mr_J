@@ -8,13 +8,15 @@ public class Main2 {
         ServiceParser netflixParser = new NetflixParser();
         ServiceParser viaplayParser = new ViaplayParser();
         ServiceParser showtime = new ShowtimeParser();
+        ServiceParser svtplayParser = new SVTPlayParser();
 
         Program program = new Program();
 
-        program.addService("hbo", hboParser);
-        //program.addService("netflix", netflixParser);
-        program.addService("viaplay", viaplayParser);
+        program.addService("HBO Nordic", hboParser);
+        program.addService("Netflix", netflixParser);
+        program.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
+        program.addService("SVT Play", svtplayParser);
         program.start();
     }
 }

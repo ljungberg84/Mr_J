@@ -6,6 +6,7 @@ public class MovieInfo {
     private String url;
     private String imagePath;
     private String source;
+    private String message;
 
     public MovieInfo(String title, String url, String source) {
         this(title, url, null, source);

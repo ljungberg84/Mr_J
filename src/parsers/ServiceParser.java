@@ -17,7 +17,7 @@ public abstract class ServiceParser implements Parsable {
 
 
     public ServiceParser(String rootUrl) {
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.rootUrl = rootUrl;
         this.options = new ChromeOptions();
         options.setHeadless(true);
