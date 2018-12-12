@@ -1,16 +1,16 @@
 package FX;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import model.Program;
 import parsers.*;
 
 public class Controller {
 
+    @FXML
+    ListView listview;
     @FXML
     Button button;
     @FXML
@@ -36,6 +36,13 @@ public class Controller {
         p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.start();
+        listview.setItems(p.getHits());
+        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
+            @Override
+            public void onChanged(Change<? extends MovieInfo> c) {
+                listview.refresh();
+            }
+        });
     }
 
     @FXML

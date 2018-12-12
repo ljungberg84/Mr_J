@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import parsers.MovieInfo;
 import parsers.Parsable;
 
@@ -11,12 +13,17 @@ public class Program {
 
     //List<Parsable> services;
     private Map<String, Parsable> services;
-    private static List<MovieInfo> hits;
+
+    public static ObservableList<MovieInfo> getHits() {
+        return hits;
+    }
+
+    private static ObservableList<MovieInfo> hits;
 
     public Program() {
         //this.services = new ArrayList<Parsable>();
         this.services = new HashMap<>();
-        hits = new ArrayList<>();
+        hits = FXCollections.observableArrayList();
     }
 
     public void start(String searchText){
