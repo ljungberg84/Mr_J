@@ -17,6 +17,6 @@ public class Main2 {
         program.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
         program.addService("SVT Play", svtplayParser);
-        program.start();
+        //program.start();
     }
 }
