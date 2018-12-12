@@ -25,11 +25,17 @@ public abstract class ServiceParser implements Parsable {
         this.options = new ChromeOptions();
         options.setHeadless(false);
 
-        //set preferences to not load images
+
+        //prefs={"profile.managed_default_content_settings.images": 2, 'disk-cache-size': 4096 }
+        //chromeOptions.add_experimental_option('prefs', prefs)
+
+
+        //set preferences to not load images and to use disk cache
         //--------------------------------------------------
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
-        //options.setExperimentalOption("prefs", prefs);
+        prefs.put("disk-cache-size", 4096);
+        options.setExperimentalOption("prefs", prefs);
         //--------------------------------------------------
     }
 
@@ -46,10 +52,13 @@ public abstract class ServiceParser implements Parsable {
 
     protected abstract MovieInfo runScript(String movieTitle);
 
+    //TODO login on start, if cookies out of date: login and gather new ones, else: use cookies to login before search
+    //TODO when clicking button for hits on streamingservice; use cookies to login
+    //TODO move login part of scripts to proper place and let parser scripts only handle search
     //TODO for efficiency replace element retrieval methods with By.id where possible(fastest way to access elements)
     //TODO replace By.xpath where possible(slowest way to access elements)
     //TODO check if element contains 'movie title' search phrase, not equals
-    //TODO how replace '&' with 'and' for retrieved object title target string
+    //TODO how replace '&' with 'and' for retrieved object title target string?
     //TODO replace sleep with listener (in Program) once javafx is connected to Program class
     //TODO research other way to get object returned from thread
 }

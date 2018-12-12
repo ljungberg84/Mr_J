@@ -55,6 +55,7 @@ public class NetflixParser extends ServiceParser {
                         System.out.println("date: " + val);
                         //Long date = Date.parse(val);
                         //Long date = Date.parse(val);
+                        //expiry = new Date(val);
 
                         //"EEE MMM dd HH:mm:ss zzz yyyy"
 
@@ -102,6 +103,9 @@ public class NetflixParser extends ServiceParser {
             WebElement userButton = new WebDriverWait(browser, 10).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
             userButton.click();
+
+            //example: move to movie url efter cookies
+            //browser.get("https://www.netflix.com/watch/80021955?tctx=0%2C0%2C%2C%2C");
 
             WebElement searchTab = new WebDriverWait(browser, 10).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("searchTab")));
