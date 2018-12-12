@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.Controller">
+    <children>
+        <Button fx:id="button" layoutX="410.0" layoutY="56.0" mnemonicParsing="false" onAction="#search" text="Search" />
+        <TextField fx:id="search" layoutX="135.0" layoutY="56.0" prefHeight="25.0" prefWidth="223.0" promptText="Type the tiltle here" />
+        <ToggleButton fx:id="Netflix" layoutX="135.0" layoutY="92.0" mnemonicParsing="false" text="Netflix" />
+        <ToggleButton fx:id="HBO" layoutX="266.0" layoutY="92.0" mnemonicParsing="false" text="HBO" />
+        <ToggleButton fx:id="SVT" layoutX="373.0" layoutY="92.0" mnemonicParsing="false" text="SVT" />
+        <ToggleButton fx:id="Showtime" layoutX="186.0" layoutY="132.0" mnemonicParsing="false" text="Showtime" />
+        <ToggleButton fx:id="Viaplay" layoutX="321.0" layoutY="132.0" mnemonicParsing="false" text="Viaplay" />
+        <ScrollPane fx:id="scrollPane" layoutX="135.0" layoutY="174.0" prefHeight="200.0" prefWidth="329.0" />
+    </children>
+</AnchorPane>
