@@ -12,11 +12,11 @@ public class Main2 {
 
         Program program = new Program();
 
-        //program.addService("HBO Nordic", hboParser);
-        //program.addService("Netflix", netflixParser);
+        program.addService("HBO Nordic", hboParser);
+        program.addService("Netflix", netflixParser);
         program.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
-        //program.addService("SVT Play", svtplayParser);
+        program.addService("SVT Play", svtplayParser);
         program.start();
     }
 }
