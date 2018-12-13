@@ -34,7 +34,7 @@ public class Controller {
 
         //p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
-        //p.addService("Svt play", svtParser);
+        p.addService("Svt play", svtParser);
         //p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
