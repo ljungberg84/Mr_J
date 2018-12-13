@@ -30,34 +30,23 @@ public class Controller {
         ServiceParser netflixParser = new NetflixParser();
         ServiceParser viaplayParser = new ViaplayParser();
         //ServiceParser showtime = new ShowtimeParser();
+        ServiceParser svtParser = new SVTPlayParser();
 
         p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
+        p.addService("Svt play", svtParser);
         p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
-        //program.start();
+        //program.startSearch();
         listview.setItems(p.getHits());
-        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
-            @Override
-            public void onChanged(Change<? extends MovieInfo> c) {
-                listview.refresh();
-            }
-        });
-    }
-
-    @FXML
-    public void buttonOnAction(){
-        try {button.setOnAction(event -> printText()
-        );
-        }catch (NullPointerException n){
-            System.out.println("Error");
-        }
+        p.startLogin();
+        p.getHits().addListener((ListChangeListener<MovieInfo>) c -> listview.refresh());
     }
 
 
     @FXML
     public void search(){
-        Thread searchThread = new Thread(()->p.start(search.getText()));
+        Thread searchThread = new Thread(()->p.startSearch(search.getText()));
         searchThread.start();
 
     }
