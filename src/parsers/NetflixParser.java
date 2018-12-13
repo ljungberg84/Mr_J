@@ -1,5 +1,6 @@
 package parsers;
 
+import model.Account;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
@@ -31,7 +32,7 @@ public class NetflixParser extends ServiceParser {
 
     @Override
     public void loadCookies() {
-        browser.get("https://www.netflix.com/se/");
+        browser.get("https://google.com");
         try{
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -42,17 +43,14 @@ public class NetflixParser extends ServiceParser {
 
                 while(token.hasMoreTokens()){
                     String name = token.nextToken();
-                    System.out.println("name: " + name);
                     String value = token.nextToken();
                     String domain = token.nextToken();
                     String path = token.nextToken();
                     Date expiry = null;
 
-                    System.out.println("efter token gets");
 
                     String val;
                     if(!(val = token.nextToken()).equals("null")){
-                        System.out.println("date: " + val);
                         //Long date = Date.parse(val);
                         //Long date = Date.parse(val);
                         //expiry = new Date(val);

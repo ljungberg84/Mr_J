@@ -52,7 +52,6 @@ public class Controller {
         }catch (NullPointerException n){
             System.out.println("Error");
         }
-
     }
 
 

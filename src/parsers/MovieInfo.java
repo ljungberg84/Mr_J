@@ -34,4 +34,11 @@ public class MovieInfo {
     public String getSource() {
         return source;
     }
+
+    @Override
+    public String toString() {
+        return "title: " + title + "\n" +
+                "hittades på " + source + "\n" +
+                "url: " + url;
+    }
 }

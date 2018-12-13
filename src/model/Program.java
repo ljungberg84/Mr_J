@@ -1,5 +1,6 @@
 package model;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import parsers.MovieInfo;
@@ -66,7 +67,8 @@ public class Program {
 
     public static void addHit(MovieInfo movieInfo){
         synchronized (hits){
-            hits.add(movieInfo);
+            Platform.runLater(()->hits.add(movieInfo));
+            //hits.add(movieInfo);
         }
     }
 }
