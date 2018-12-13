@@ -5,15 +5,14 @@ import model.Account;
 import model.MyCookieHandler;
 import model.Program;
 import model.Searcher;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.File;
 import java.util.HashMap;
 
 
-public abstract class ServiceParser implements Searcher {
+public abstract class ServiceHandler implements Searcher {
 
     protected String searchUrl; //Maybe remove or change
     protected ChromeDriver browser;
@@ -28,7 +27,7 @@ public abstract class ServiceParser implements Searcher {
     protected MyCookieHandler cookieHandler;
    // protected File file = new File("cookies.data"); //should be in account class
 
-    public ServiceParser(String searchUrl, String fileName) {
+    public ServiceHandler(String searchUrl, String fileName) {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.searchUrl = searchUrl;
         this.options = new ChromeOptions();

@@ -6,7 +6,7 @@
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 //
-//public class HboParser extends ServiceParser {
+//public class HboParser extends ServiceHandler {
 //
 //    public HboParser() {
 //        super("https://se.hbonordic.com/search");

@@ -6,7 +6,7 @@
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 //
-//public class ViaplayParser extends ServiceParser {
+//public class ViaplayParser extends ServiceHandler {
 //
 //    private String userName = "";
 //    private String password = "";

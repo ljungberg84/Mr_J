@@ -4,8 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import parsers.MovieInfo;
-import parsers.Parsable;
-import parsers.ServiceParser;
+import parsers.ServiceHandler;
 
 import java.util.*;
 
@@ -14,7 +13,7 @@ public class Program {
     Scanner sc = new Scanner(System.in);
 
     //List<Parsable> services;
-    private Map<String, ServiceParser> services;
+    private Map<String, ServiceHandler> services;
 
     public static ObservableList<MovieInfo> getHits() {
         return hits;
@@ -30,7 +29,7 @@ public class Program {
 
     public void startLogin(){
         System.out.println("Starting login");
-        for (ServiceParser service : services.values()) {
+        for (ServiceHandler service : services.values()) {
             if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
                 System.out.println("Username and password found");
                 if (service.getCookieHandler().isExpired()) {
@@ -54,7 +53,7 @@ public class Program {
 //            String movieTitle = sc.nextLine();
 //            if (movieTitle.equalsIgnoreCase("quit"))
 //                System.exit(0);
-        for (ServiceParser service : services.values()) {
+        for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");
             Thread thread = new Thread(() -> service.parse(searchText));
             thread.start();  // thread instansiation maybe here
@@ -78,7 +77,7 @@ public class Program {
 
     }
 
-    public void addService(String name, ServiceParser service){
+    public void addService(String name, ServiceHandler service){
         if(service != null && name != null){
             //services.add(service);
             services.put(name, service);

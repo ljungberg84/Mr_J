@@ -5,36 +5,26 @@ import model.Loginable;
 import model.MyCookieHandler;
 import model.Searcher;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.StringTokenizer;
 
-public class NetflixParser extends ServiceParser implements Searcher, Loginable {
+public class NetflixHandler extends ServiceHandler implements Searcher, Loginable {
 
 //    private Account account;
 //    private MyCookieHandler cookieHandler;
     //"https://www.netflix.com/se/login"
 
-    public NetflixParser() {
+    public NetflixHandler() {
         super("https://www.netflix.com/se/search", "netflixCookies");
         //super.cookieHandler = new MyCookieHandler(browser, "netflixCookies");
-        account.setPassword("");
-        account.setUserName("");
+        account.setUserName("hannahannahanna@hotmail.com");
+        account.setPassword("Angus100Norpan200");
+
     }
 
     public Account getAccount() {
@@ -69,9 +59,14 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
 //            WebElement loginButton = buttonList.get(1);
 //            loginButton.click();
 //
-//            WebElement userButton = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
-//            userButton.click();
+            try{
+                WebElement userButton = new WebDriverWait(browser, 10).
+                        until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
+                userButton.click();
+            }catch (Exception e){
+
+            }
+
 
             //example: move to movie url efter cookies
             //browser.get("https://www.netflix.com/watch/80021955?tctx=0%2C0%2C%2C%2C");

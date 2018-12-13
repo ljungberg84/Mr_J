@@ -2,7 +2,7 @@
 //
 //import org.openqa.selenium.WebElement;
 //
-//public class ShowtimeParser extends ServiceParser {
+//public class ShowtimeParser extends ServiceHandler {
 //
 //    public ShowtimeParser() {
 //        super("https://www.sho.com/");

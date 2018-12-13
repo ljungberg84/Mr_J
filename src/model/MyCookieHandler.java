@@ -94,8 +94,8 @@ public class MyCookieHandler {
                     Boolean isSecure = Boolean.parseBoolean(token.nextToken());
 
                     Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
-                    System.out.println(ck);
-                    System.out.println("ad cookie");
+                    //System.out.println(ck);
+                    //System.out.println("ad cookie");
                     browser.manage().addCookie(ck);
                 }
             }
