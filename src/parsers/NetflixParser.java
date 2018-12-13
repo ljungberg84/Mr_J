@@ -33,8 +33,8 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
     public NetflixParser() {
         super("https://www.netflix.com/se/search", "netflixCookies");
         //super.cookieHandler = new MyCookieHandler(browser, "netflixCookies");
-        account.setPassword("gab11bel");
-        account.setUserName("gbellak11@gmail.com");
+        account.setPassword("");
+        account.setUserName("");
     }
 
     public Account getAccount() {
