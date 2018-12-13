@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ViaplayParser extends ServiceParser {
 
-    private String userName = "";
-    private String password = "";
+    private String userName = "bkay_gbg@hotmail.com";
+    private String password = "Pierdole86";
 
     public ViaplayParser() {
         super("https://www.viaplay.se");

@@ -21,8 +21,8 @@ public class Login extends ServiceParser {
 
     @Override
     protected MovieInfo runScript(String movieTitle) {
-        String userName = "";
-        String password = "";
+        String userName = "gbellak11@gmail.com";
+        String password = "gab11bel";
         browser.get("https://www.netflix.com/se/search");
         try{
             WebElement emailField = new WebDriverWait(browser, 10).
