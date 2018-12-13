@@ -1,10 +1,14 @@
 package parsers;
 
 import model.Account;
+import model.Loginable;
+import model.MyCookieHandler;
+import model.Searcher;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,71 +24,38 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-public class NetflixParser extends ServiceParser {
+public class NetflixParser extends ServiceParser implements Searcher, Loginable {
 
-    private String userName = "";
-    private String password = "";
+//    private Account account;
+//    private MyCookieHandler cookieHandler;
     //"https://www.netflix.com/se/login"
 
     public NetflixParser() {
-        super("https://www.netflix.com/se/search");
+        super("https://www.netflix.com/se/search", "netflixCookies");
+        //super.cookieHandler = new MyCookieHandler(browser, "netflixCookies");
+        account.setPassword("gab11bel");
+        account.setUserName("gbellak11@gmail.com");
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public MyCookieHandler getCookieHandler() {
+        return cookieHandler;
     }
 
     @Override
-    public void loadCookies() {
-        browser.get("https://google.com");
-        try{
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String strLine;
-            while((strLine=bufferedReader.readLine()) != null){
-                StringTokenizer token = new StringTokenizer(strLine, ";");
-
-                while(token.hasMoreTokens()){
-                    String name = token.nextToken();
-                    String value = token.nextToken();
-                    String domain = token.nextToken();
-                    String path = token.nextToken();
-                    Date expiry = null;
-
-
-                    String val;
-                    if(!(val = token.nextToken()).equals("null")){
-                        //Long date = Date.parse(val);
-                        //Long date = Date.parse(val);
-                        //expiry = new Date(val);
-
-                        //"EEE MMM dd HH:mm:ss zzz yyyy"
-
-                        SimpleDateFormat f = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.UK);
-                        try {
-                            Date d = f.parse(val);
-                            long milliseconds = d.getTime();
-                            //System.out.println("new date: " + d);
-                            expiry = new Date(milliseconds);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    Boolean isSecure = Boolean.parseBoolean(token.nextToken());
-
-                    Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
-                    System.out.println(ck);
-                    System.out.println("ad cookie");
-                    browser.manage().addCookie(ck);
-                }
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
+    public MovieInfo search(String movieTitle) {
+        if (cookieHandler.getFile().exists()) {
+            System.out.println("Netflix file exists");
+            cookieHandler.loadCookies(browser);
+            System.out.println("Loading cookies");
         }
-    }
-
-    @Override
-    protected MovieInfo runScript(String movieTitle) {
-        loadCookies();
-        browser.get("https://www.netflix.com/search");//rootUrl
+        else {
+            System.out.println("Netflix file not found");
+        }
+        browser.get("https://www.netflix.com/search"); //searchUrl
         try{
 //            WebElement emailField = new WebDriverWait(browser, 10).
 //                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
@@ -98,9 +69,9 @@ public class NetflixParser extends ServiceParser {
 //            WebElement loginButton = buttonList.get(1);
 //            loginButton.click();
 //
-            WebElement userButton = new WebDriverWait(browser, 10).
-                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
-            userButton.click();
+//            WebElement userButton = new WebDriverWait(browser, 10).
+//                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
+//            userButton.click();
 
             //example: move to movie url efter cookies
             //browser.get("https://www.netflix.com/watch/80021955?tctx=0%2C0%2C%2C%2C");
@@ -137,5 +108,35 @@ public class NetflixParser extends ServiceParser {
             browser.close();
         }
         return  null;
+    }
+
+    @Override
+    public void login() {
+        System.out.println("Starting netflix login");
+        browser = new ChromeDriver(options);
+        browser.get("https://www.netflix.com/se/search");
+        try {
+            WebElement emailField = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
+
+            WebElement passwordField = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_password")));
+
+            emailField.sendKeys(account.getUserName());
+            passwordField.sendKeys(account.getPassword());
+
+            List<WebElement> buttonList = browser.findElementsByTagName("Button");
+            WebElement loginButton = buttonList.get(1);
+            loginButton.click();
+
+            WebElement userButton = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
+            userButton.click();
+            cookieHandler.saveCookies(browser);
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            browser.close();
+        }
     }
 }

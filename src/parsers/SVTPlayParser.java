@@ -3,6 +3,7 @@ package parsers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -10,12 +11,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SVTPlayParser extends ServiceParser{
 
     public SVTPlayParser() {
-        super("https://www.svtplay.se");
+        super("https://www.svtplay.se", "svtCookies");
     }
 
     @Override
-    protected MovieInfo runScript(String movieTitle) {
-        browser.get(rootUrl);
+    public void login() {
+        System.out.println("SVT has no login");
+    }
+
+    @Override
+    public MovieInfo search(String movieTitle) {
+        System.out.println("Starting SVT");
+        browser.get("https://www.svtplay.se");
         try{
             WebElement searchField = new WebDriverWait(browser, 5).
                     until(ExpectedConditions.presenceOfElementLocated(By.id("q")));
@@ -33,6 +40,7 @@ public class SVTPlayParser extends ServiceParser{
                     (By.xpath("//a[@class='play_search-result__link']")));
 
             String url = urlElement.getAttribute("href");
+            System.out.println("Returning movieInfo object");
 
             return new MovieInfo(movieTitle, url, "SVT Play");
 
