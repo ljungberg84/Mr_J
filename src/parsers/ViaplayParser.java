@@ -75,7 +75,7 @@ public class ViaplayParser extends ServiceParser implements Searcher, Loginable 
             System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
-            browser.close();
+          //  browser.close();
         }
         return null;
     }
@@ -86,22 +86,23 @@ public class ViaplayParser extends ServiceParser implements Searcher, Loginable 
         browser = new ChromeDriver(options);
         browser.get("https://viaplay.se/#search=");
         try{
-            WebElement logInButton1 = new WebDriverWait(browser,4).
+            WebElement logInButton1 = new WebDriverWait(browser,2).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));
             logInButton1.click();
 
-            WebElement emailField = new WebDriverWait(browser, 4).
+            WebElement emailField = new WebDriverWait(browser, 2).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("username")));
-            WebElement passwordField = new WebDriverWait(browser, 4).
+            WebElement passwordField = new WebDriverWait(browser, 2).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("password")));
 
             emailField.sendKeys(account.getUserName());
             passwordField.sendKeys(account.getPassword());
 
-            WebElement logInButton2 = new WebDriverWait(browser,4).
+            WebElement logInButton2 = new WebDriverWait(browser,2).
                     until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/figure/section/div[3]/form[1]/div[4]/input")));
-            Thread.sleep(2000);
+           // Thread.sleep(2000);
             logInButton2.click();
+            Thread.sleep(2000);
 
             cookieHandler.saveCookies(browser);
         } catch (Exception e){
