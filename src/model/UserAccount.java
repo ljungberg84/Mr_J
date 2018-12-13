@@ -1,9 +1,9 @@
 package model;
 
-public class Account {
+public class UserAccount {
 
-    private String userName;
-    private String password;
+    private String userName = "hannahannahanna@hotmail.com";
+    private String password = "Angus100Norpan200";
 
 
     public String getUserName() {

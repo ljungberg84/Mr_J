@@ -18,7 +18,7 @@
 //
 //    @Override
 //    protected MovieInfo search(String movieTitle) {
-//        browser.get(searchUrl);
+//        browser.get(rootUrl);
 //        try {
 ////            WebElement logInButton1 = new WebDriverWait(browser,2).
 ////                    until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));

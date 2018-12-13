@@ -1,7 +1,6 @@
 package model;
 
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -14,24 +13,17 @@ import java.util.StringTokenizer;
 
 public class MyCookieHandler {
 
-    protected File file;
-    private WebDriver browser;
+    private File cookieFile;
 
-    private ChromeOptions options;
-
-    public MyCookieHandler(ChromeOptions options, String filename) {
-        this.file = new File(filename);
-        //this.options = options;
-        //this.browser = new ChromeDriver(options);
+    public MyCookieHandler(String filename) {
+        this.cookieFile = new File(filename);
     }
 
     public void saveCookies(ChromeDriver browser){
-        //File file = new File("cookies.data");
         try{
-
-            file.delete();
-            file.createNewFile();
-            FileWriter fileWriter = new FileWriter(file);
+            cookieFile.delete();
+            cookieFile.createNewFile();
+            FileWriter fileWriter = new FileWriter(cookieFile);
             BufferedWriter bWrite = new BufferedWriter(fileWriter);
 
             for (Cookie ck : browser.manage().getCookies()) {
@@ -40,25 +32,26 @@ public class MyCookieHandler {
 
                 bWrite.newLine();
             }
+
             bWrite.close();
             fileWriter.close();
 
         } catch(Exception e){
             e.printStackTrace();
         }finally {
-            //browser.close();
+            browser.close();
         }
     }
 
     public boolean isExpired(){
-        return true;
+        return false;
     }
 
     public void loadCookies(ChromeDriver browser) {
 
         browser.get("https://google.com");
         try{
-            FileReader fileReader = new FileReader(file);
+            FileReader fileReader = new FileReader(cookieFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String strLine;
@@ -92,10 +85,8 @@ public class MyCookieHandler {
                         }
                     }
                     Boolean isSecure = Boolean.parseBoolean(token.nextToken());
-
                     Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
-                    //System.out.println(ck);
-                    //System.out.println("ad cookie");
+
                     browser.manage().addCookie(ck);
                 }
             }
@@ -105,7 +96,9 @@ public class MyCookieHandler {
         }
     }
 
-    public File getFile() {
-        return file;
+    public File getCookieFile() {
+        return cookieFile;
     }
+
+
 }

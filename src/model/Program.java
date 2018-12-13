@@ -19,7 +19,7 @@ public class Program {
         return hits;
     }
 
-    private static ObservableList<MovieInfo> hits;
+    private static  ObservableList<MovieInfo> hits;
 
     public Program() {
         //this.services = new ArrayList<Parsable>();
@@ -30,11 +30,13 @@ public class Program {
     public void startLogin(){
         System.out.println("Starting login");
         for (ServiceHandler service : services.values()) {
+
             if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
                 System.out.println("Username and password found");
+
                 if (service.getCookieHandler().isExpired()) {
                     System.out.println("Logging in");
-                    Thread thread = new Thread(()-> service.login());
+                    Thread thread = new Thread(service::login);
                     thread.start();
                 }
             } else {
@@ -42,7 +44,7 @@ public class Program {
             }
         }
     }
-    public void startSearch(String searchText){
+    public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
         int hitCount;
@@ -55,7 +57,7 @@ public class Program {
 //                System.exit(0);
         for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");
-            Thread thread = new Thread(() -> service.parse(searchText));
+            Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
             thread.start();  // thread instansiation maybe here
         }
         //main thread sleeps to make sure results populate list before printout
@@ -84,12 +86,12 @@ public class Program {
         }
     }
 
-    public static void addHit(MovieInfo movieInfo){
-        synchronized (hits){
-            Platform.runLater(()->hits.add(movieInfo));
-            //hits.add(movieInfo);
-        }
-    }
+//    public static void addHit(MovieInfo movieInfo){
+//        synchronized (hits){
+//            Platform.runLater(()->hits.add(movieInfo));
+//            //hits.add(movieInfo);
+//        }
+//    }
 
 
 }

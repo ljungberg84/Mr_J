@@ -5,10 +5,10 @@ public class Main2 {
 
     public static void main(String[] args) {
         //ServiceHandler hboParser = new HboParser();
-        ServiceHandler netflixParser = new NetflixHandler();
+        ServiceHandler netflixParser = new NetflixService();
         //ServiceHandler viaplayParser = new ViaplayParser();
         //ServiceHandler showtime = new ShowtimeParser();
-        ServiceHandler svtplayParser = new SVTPlayHandler();
+        //ServiceHandler svtplayParser = new SVTPlayHandler();
 
         Program program = new Program();
 

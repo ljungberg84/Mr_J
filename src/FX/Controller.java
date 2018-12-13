@@ -27,14 +27,14 @@ public class Controller {
 
     public void initialize(){
         //ServiceHandler hboParser = new HboParser();
-        ServiceHandler netflixParser = new NetflixHandler();
+        ServiceHandler netflixParser = new NetflixService();
         //ServiceHandler viaplayParser = new ViaplayParser();
         //ServiceHandler showtime = new ShowtimeParser();
-        ServiceHandler svtParser = new SVTPlayHandler();
+        //ServiceHandler svtParser = new SVTPlayHandler();
 
         //p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
-        p.addService("Svt play", svtParser);
+        //p.addService("Svt play", svtParser);
         //p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();

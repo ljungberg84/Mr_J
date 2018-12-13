@@ -37,8 +37,8 @@ public class MovieInfo {
 
     @Override
     public String toString() {
-        return "title: " + title + "\n" +
-                "hittades på " + source + "\n" +
-                "url: " + url;
+        return title + "\n" +
+                source + "\n" +
+                url;
     }
 }

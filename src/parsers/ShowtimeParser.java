@@ -10,7 +10,7 @@
 //
 //    @Override
 //    protected MovieInfo search(String movieTitle) {
-//        browser.get(searchUrl);
+//        browser.get(rootUrl);
 //        try{
 //            WebElement searchField = browser.findElementByClassName("global-navigation__search-field");
 //            searchField.sendKeys("hello world");

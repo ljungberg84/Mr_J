@@ -1,58 +1,29 @@
 package parsers;
 
-import javafx.application.Platform;
-import model.Account;
 import model.MyCookieHandler;
-import model.Program;
-import model.Searcher;
-
+import model.UserAccount;
+import model.WebDriverHandler;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.HashMap;
+import java.util.List;
 
 
-public abstract class ServiceHandler implements Searcher {
+public abstract class ServiceHandler extends WebDriverHandler {
 
-    protected String searchUrl; //Maybe remove or change
-    protected ChromeDriver browser;
-
-    public ChromeOptions getOptions() {
-        return options;
-    }
-
-    protected ChromeOptions options;
-    protected MovieInfo hit;
-    protected Account account;
     protected MyCookieHandler cookieHandler;
-   // protected File file = new File("cookies.data"); //should be in account class
+    protected UserAccount account;
 
-    public ServiceHandler(String searchUrl, String fileName) {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        this.searchUrl = searchUrl;
-        this.options = new ChromeOptions();
-        this.account = new Account();
-        options.setHeadless(true);
-        //this.browser = new ChromeDriver(options);
-        this.cookieHandler = new MyCookieHandler(options, fileName);
-
-        //set preferences to not load images and to use disk cache
-        //--------------------------------------------------
-        HashMap<String, Object> prefs = new HashMap<String, Object>();
-        prefs.put("profile.managed_default_content_settings.images", 2);
-        prefs.put("disk-cache-size", 4096);
-        options.setExperimentalOption("prefs", prefs);
-        //--------------------------------------------------
+    public ServiceHandler(String cookieFileName) {
+        this.cookieHandler = new MyCookieHandler(cookieFileName);
+        this.account = new UserAccount();
     }
-//
-//    @Override
-//    public MovieInfo search(String movieTitle) {
-//        return null;
-//    }
 
+    public void searchHandler(String title, List<MovieInfo> hits){
+        browser = new ChromeDriver(options);
+        hits.add(search(title));
+    }
 
-
-    public Account getAccount() {
+    public UserAccount getAccount() {
         return account;
     }
 
@@ -60,22 +31,10 @@ public abstract class ServiceHandler implements Searcher {
         return cookieHandler;
     }
 
-    public void parse(String movieTitle){
-        browser = new ChromeDriver(options);
-        Platform.runLater(()->Program.addHit(search(movieTitle)) );
-
-//        this.browser = new ChromeDriver(options);
-//        Thread thread = new Thread(()-> Program.addHit(search(movieTitle)));
-//        thread.start();
-    }
-//
-//    public void loadCookies(){
-//
-//    }
+    public abstract MovieInfo search(String title);
 
     public abstract void login();
 
-    public abstract MovieInfo search(String movieTitle);
 
     //TODO login on startSearch, if cookies out of date: login and gather new ones, else: use cookies to login before search
     //TODO when clicking button for hits on streamingservice; use cookies to login

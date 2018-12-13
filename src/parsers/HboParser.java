@@ -14,7 +14,7 @@
 //
 //    @Override
 //    protected MovieInfo search(String movieTitle) {
-//        browser.get(searchUrl);
+//        browser.get(rootUrl);
 //        try{
 //            WebElement searchField = new WebDriverWait(browser, 3).
 //                    until(ExpectedConditions.presenceOfElementLocated(By.id("search-field")));
