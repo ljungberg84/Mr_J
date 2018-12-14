@@ -39,6 +39,7 @@ public class MovieInfo {
     public String toString() {
         return title + "\n" +
                 source + "\n" +
-                url;
+                url + "\n" +
+                imagePath;
     }
 }

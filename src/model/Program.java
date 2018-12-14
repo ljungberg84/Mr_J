@@ -86,6 +86,8 @@ public class Program {
         }
     }
 
+
+
 //    public static void addHit(MovieInfo movieInfo){
 //        synchronized (hits){
 //            Platform.runLater(()->hits.add(movieInfo));

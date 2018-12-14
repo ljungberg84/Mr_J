@@ -18,6 +18,10 @@ public abstract class ServiceHandler extends WebDriverHandler {
         this.account = new UserAccount();
     }
 
+    public abstract MovieInfo search(String title);
+
+    public abstract void login();
+
     public void searchHandler(String title, List<MovieInfo> hits){
         browser = new ChromeDriver(options);
         hits.add(search(title));
@@ -30,10 +34,6 @@ public abstract class ServiceHandler extends WebDriverHandler {
     public MyCookieHandler getCookieHandler() {
         return cookieHandler;
     }
-
-    public abstract MovieInfo search(String title);
-
-    public abstract void login();
 
 
     //TODO login on startSearch, if cookies out of date: login and gather new ones, else: use cookies to login before search

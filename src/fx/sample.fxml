@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!--<GridPane fx:id="borderPane" fx:controller="fx.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">-->
+<!--<top>-->
+<!--<TextField fx:id="search" layoutX="135.0" layoutY="56.0" prefHeight="25.0" prefWidth="223.0" promptText="Type the tiltle here" />-->
+<!--<HBox>-->
+<!--<Label>-->
+<!--</Label>-->
+<!--</HBox>-->
+<!--</top>-->
+<!--<center>-->
+<!--<ImageView>-->
+<!--</ImageView>-->
+<!--</center>-->
+<!--<bottom>-->
+<!--<HBox>-->
+<!--<ListView fx:id="listview" layoutX="135.0" layoutY="177.0" prefHeight="200.0" prefWidth="330.0" >-->
+<!--</ListView>-->
+<!--</HBox>-->
+<!--</bottom>-->
+<!--</GridPane>-->
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.Controller">
+    <children>
+        <Button fx:id="searchButton" layoutX="410.0" layoutY="56.0" mnemonicParsing="false" onAction="#search" text="Search" />
+        <TextField fx:id="searchField" layoutX="135.0" layoutY="56.0" prefHeight="25.0" prefWidth="223.0" promptText="Type the tiltle here" />
+      <ListView fx:id="listview" layoutX="135.0" layoutY="258.0" prefHeight="119.0" prefWidth="330.0" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="330.0" layoutX="188.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../354855-admin.jpg" />
+         </image></ImageView>
+    </children>
+</AnchorPane>

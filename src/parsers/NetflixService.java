@@ -1,9 +1,5 @@
 package parsers;
 
-import model.Service;
-import model.UserAccount;
-import model.MyCookieHandler;
-import model.WebDriverHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -15,15 +11,8 @@ import java.util.List;
 
 public class NetflixService extends ServiceHandler {
 
-    //"https://www.netflix.com/se/login"
-    //private WebDriverHandler driverHandler;
-    //private MyCookieHandler cookieHandler;
-    //private UserAccount account;
-
     public NetflixService() {
         super("netflix_cookies");
-        //this.cookieHandler = new MyCookieHandler("netflix_cookies");
-        //this.account = new UserAccount();
     }
 
     @Override
@@ -74,13 +63,16 @@ public class NetflixService extends ServiceHandler {
                         presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
                         " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
 
+            String title = movieNode.getAttribute("aria-label");
             String url = movieNode.getAttribute("href");
 //            System.out.println("--------------------------");
 //            System.out.println(movieTitle + " was found on Netflix");
 //            System.out.println("Url: " + url);
 //            System.out.println("--------------------------");
             //browser.close();
-            return new MovieInfo(movieNode.getAttribute("aria-label"), url, "Netflix");
+            movieNode = movieNode.findElement(By.xpath("//img[@class='boxart-image boxart-image-in-padded-container']"));
+            String imgUrl = movieNode.getAttribute("src");
+            return new MovieInfo(title, url,imgUrl, "Netflix");
 
         }catch(TimeoutException e){
             //System.out.println(movieTitle + " was not found on Netflix");
@@ -91,7 +83,7 @@ public class NetflixService extends ServiceHandler {
             //System.out.println(e.getMessage());
             e.printStackTrace();
         }finally {
-            browser.close();
+            //browser.close();
         }
         return  null;
     }

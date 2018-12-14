@@ -7,26 +7,18 @@ import java.util.HashMap;
 
 public class WebDriverHandler {
 
-    //protected String rootUrl; //Maybe remove or change
     protected ChromeDriver browser;
     protected ChromeOptions options;
 
     public WebDriverHandler() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.options = new ChromeOptions();
-        options.setHeadless(true);
-
-        //this.browser = new ChromeDriver(options);
-        //this.cookieHandler = new MyCookieHandler(options, fileName);
-        //this.account = new UserAccount();
-        //this.rootUrl = rootUrl;
+        options.setHeadless(false);
 
         //set preferences to not load images and to use disk cache
-        //--------------------------------------------------
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
         prefs.put("disk-cache-size", 4096);
-        options.setExperimentalOption("prefs", prefs);
-        //--------------------------------------------------
+        //options.setExperimentalOption("prefs", prefs);
     }
 }
