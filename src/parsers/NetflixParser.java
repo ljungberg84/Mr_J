@@ -35,6 +35,7 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
         //super.cookieHandler = new MyCookieHandler(browser, "netflixCookies");
         account.setPassword("");
         account.setUserName("");
+
     }
 
     public Account getAccount() {
@@ -57,6 +58,7 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
         }
         browser.get("https://www.netflix.com/search"); //searchUrl
         try{
+
 //            WebElement emailField = new WebDriverWait(browser, 10).
 //                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
 //            WebElement passwordField = new WebDriverWait(browser, 10).
@@ -107,7 +109,7 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
         }finally {
             browser.close();
         }
-        return  null;
+        return null;
     }
 
     @Override
@@ -139,4 +141,39 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
             browser.close();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Netflix";
+    }
+
+//    @Override
+////    public void login() {
+////        System.out.println("Starting netflix login");
+////        browser = new ChromeDriver(options);
+////        browser.get("https://www.netflix.com/se/search");
+////        try {
+////            WebElement emailField = new WebDriverWait(browser, 10).
+////                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
+////
+////            WebElement passwordField = new WebDriverWait(browser, 10).
+////                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_password")));
+////
+////            emailField.sendKeys(account.getUserName());
+////            passwordField.sendKeys(account.getPassword());
+////
+////            List<WebElement> buttonList = browser.findElementsByTagName("Button");
+////            WebElement loginButton = buttonList.get(1);
+////            loginButton.click();
+////
+////            WebElement userButton = new WebDriverWait(browser, 10).
+////                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
+////            userButton.click();
+////            cookieHandler.saveCookies(browser);
+////        } catch (Exception e){
+////            e.printStackTrace();
+////        } finally {
+////            browser.close();
+////        }
+////    }
 }

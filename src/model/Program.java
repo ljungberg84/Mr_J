@@ -3,6 +3,7 @@ package model;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import parsers.MovieInfo;
 import parsers.Parsable;
 import parsers.ServiceParser;
@@ -20,6 +21,7 @@ public class Program {
         return hits;
     }
 
+
     private static ObservableList<MovieInfo> hits;
 
     public Program() {
@@ -27,6 +29,7 @@ public class Program {
         this.services = new HashMap<>();
         hits = FXCollections.observableArrayList();
     }
+
 
     public void startLogin(){
         System.out.println("Starting login");

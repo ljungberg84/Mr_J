@@ -33,7 +33,7 @@ public abstract class ServiceParser implements Searcher {
         this.searchUrl = searchUrl;
         this.options = new ChromeOptions();
         this.account = new Account();
-        options.setHeadless(true);
+        options.setHeadless(false);
         //this.browser = new ChromeDriver(options);
         this.cookieHandler = new MyCookieHandler(options, fileName);
 
@@ -42,7 +42,7 @@ public abstract class ServiceParser implements Searcher {
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
         prefs.put("disk-cache-size", 4096);
-        options.setExperimentalOption("prefs", prefs);
+        //options.setExperimentalOption("prefs", prefs);
         //--------------------------------------------------
     }
 //
