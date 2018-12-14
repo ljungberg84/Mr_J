@@ -1,5 +1,6 @@
 package fx;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ import java.net.URL;
 public class Controller {
 
     @FXML
-    ListView listview;
+    ListView<MovieInfo> listview;
     @FXML
     Button searchButton;
     @FXML
@@ -41,23 +42,24 @@ public class Controller {
 
 
     public void initialize(){
-        //ServiceHandler hboParser = new HboParser();
+        ServiceHandler hboParser = new HboService();
         ServiceHandler netflixParser = new NetflixService();
-        //ServiceHandler viaplayParser = new ViaplayParser();
+        ServiceHandler viaplayParser = new ViaplayService();
         //ServiceHandler showtime = new ShowtimeParser();
         //ServiceHandler svtParser = new SVTPlayHandler();
 
-        //p.addService("hbo", hboParser);
+        p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
         //p.addService("Svt play", svtParser);
-        //p.addService("viaplay", viaplayParser);
+        p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
         listview.setItems(Program.getHits());
         listview.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
             @Override
             public ListCell call(ListView param) {
-                return new MovieCell();
+               return new MovieCell();
+
             }
         });
         p.startLogin();
@@ -85,6 +87,7 @@ public class Controller {
 
     @FXML
     public void search(){
+        Program.getHits().clear();
         Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
         searchThread.start();
     }

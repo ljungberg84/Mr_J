@@ -56,7 +56,8 @@ public class Program {
     public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
-        Platform.runLater(()->hits.clear());
+        //Platform.runLater(()->hits.clear());
+        //hits.clear();
 
         for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");

@@ -72,7 +72,7 @@ public class NetflixService extends ServiceHandler {
             //browser.close();
             movieNode = movieNode.findElement(By.xpath("//img[@class='boxart-image boxart-image-in-padded-container']"));
             String imgUrl = movieNode.getAttribute("src");
-            return new MovieInfo(title, url,imgUrl, "Netflix");
+            return new MovieInfo(title, url,imgUrl, "Netflix.png");
 
         }catch(TimeoutException e){
             //System.out.println(movieTitle + " was not found on Netflix");
