@@ -17,7 +17,7 @@ public class NetflixService extends ServiceHandler {
 
     @Override
     public MovieInfo search(String movieTitle) {
-        if (cookieHandler.getCookieFile().exists()) {
+        if (cookieHandler.hasExpired()) {
             System.out.println("Netflix cookieFile exists");
             cookieHandler.loadCookies(browser);
             System.out.println("Loading cookies");
@@ -88,8 +88,39 @@ public class NetflixService extends ServiceHandler {
         return  null;
     }
 
+
+
+
+//    if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
+//                //System.out.println("Username and password found");
+//
+//                if (service.getCookieHandler().hasExpired()) {
+//                    System.out.println("Logging in");
+//                    Thread thread = new Thread(service::login);
+//                    thread.start();
+//                }
+//            } else {
+//                System.out.println("No username found");
+//            }
+
+
+
+
     @Override
     public void login() {
+        if(account.hasLogin()){
+            System.out.println("login for netflix found");
+            if (cookieHandler.hasExpired()){
+                System.out.println("expired cookies");
+            }else{
+                System.out.println("cookies available, cancelling login");
+                return;
+            }
+        }else{
+            System.out.println("cant log in without account");
+            return;
+        }
+
         System.out.println("Starting netflix login");
         browser = new ChromeDriver(options);
         browser.get("https://www.netflix.com/se/search");

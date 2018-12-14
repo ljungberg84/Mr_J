@@ -2,9 +2,12 @@ package model;
 
 public class UserAccount {
 
-    private String userName = "hannahannahanna@hotmail.com";
-    private String password = "Angus100Norpan200";
+    private String userName = "";
+    private String password = "";
 
+    public boolean hasLogin(){
+        return (!userName.isEmpty() && !password.isEmpty());
+    }
 
     public String getUserName() {
         return userName;

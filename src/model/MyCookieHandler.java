@@ -43,8 +43,9 @@ public class MyCookieHandler {
         }
     }
 
-    public boolean isExpired(){
-        return false;
+    //method needs to examine cookie date in file and not only check if exists
+    public boolean hasExpired(){
+        return cookieFile.exists();
     }
 
     public void loadCookies(ChromeDriver browser) {

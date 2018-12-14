@@ -1,8 +1,10 @@
 package parsers;
 
 import model.MyCookieHandler;
+import model.Program;
 import model.UserAccount;
 import model.WebDriverHandler;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
@@ -22,9 +24,10 @@ public abstract class ServiceHandler extends WebDriverHandler {
 
     public abstract void login();
 
-    public void searchHandler(String title, List<MovieInfo> hits){
+    public void  searchHandler(String title, List<MovieInfo> hits){
         browser = new ChromeDriver(options);
-        hits.add(search(title));
+        //hits.add(search(title));
+        Program.addHits(search(title));
     }
 
     public UserAccount getAccount() {

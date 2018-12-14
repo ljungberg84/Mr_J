@@ -13,13 +13,19 @@ public class Program {
     Scanner sc = new Scanner(System.in);
 
     //List<Parsable> services;
-    private Map<String, ServiceHandler> services;
+    private static Map<String, ServiceHandler> services;
+    private static  ObservableList<MovieInfo> hits;
 
     public static ObservableList<MovieInfo> getHits() {
         return hits;
     }
 
-    private static  ObservableList<MovieInfo> hits;
+    public synchronized static void addHits(MovieInfo hit){
+        Platform.runLater(()->hits.add(hit));
+
+    }
+
+
 
     public Program() {
         //this.services = new ArrayList<Parsable>();
@@ -30,32 +36,28 @@ public class Program {
     public void startLogin(){
         System.out.println("Starting login");
         for (ServiceHandler service : services.values()) {
-
-            if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
-                //System.out.println("Username and password found");
-
-                if (service.getCookieHandler().isExpired()) {
-                    System.out.println("Logging in");
-                    Thread thread = new Thread(service::login);
-                    thread.start();
-                }
-            } else {
-                System.out.println("No username found");
-            }
+            Thread thread = new Thread(service::login);
+            thread.start();
         }
+
+//            if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
+//                //System.out.println("Username and password found");
+//
+//                if (service.getCookieHandler().hasExpired()) {
+//                    System.out.println("Logging in");
+//                    Thread thread = new Thread(service::login);
+//                    thread.start();
+//                }
+//            } else {
+//                System.out.println("No username found");
+//            }
+//        }
     }
     public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
-        int hitCount;
-
         Platform.runLater(()->hits.clear());
-        //hits.clear();
-        //hitCount = 0;
-//            System.out.println("Enter movie title to search for:");
-//            String movieTitle = sc.nextLine();
-//            if (movieTitle.equalsIgnoreCase("quit"))
-//                System.exit(0);
+
         for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");
             Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
