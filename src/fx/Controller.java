@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.layout.AnchorPane;
 import model.Program;
-import org.omg.CORBA.IMP_LIMIT;
 import parsers.*;
 
 public class Controller {

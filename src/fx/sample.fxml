@@ -33,8 +33,6 @@
         <TextField fx:id="searchField" layoutX="135.0" layoutY="56.0" prefHeight="25.0" prefWidth="223.0" promptText="Type the tiltle here" />
       <ListView fx:id="listview" layoutX="135.0" layoutY="258.0" prefHeight="119.0" prefWidth="330.0" />
       <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="330.0" layoutX="188.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../354855-admin.jpg" />
-         </image></ImageView>
+      </ImageView>
     </children>
 </AnchorPane>

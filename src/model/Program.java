@@ -32,7 +32,7 @@ public class Program {
         for (ServiceHandler service : services.values()) {
 
             if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
-                System.out.println("Username and password found");
+                //System.out.println("Username and password found");
 
                 if (service.getCookieHandler().isExpired()) {
                     System.out.println("Logging in");
@@ -50,7 +50,8 @@ public class Program {
         int hitCount;
 
         Platform.runLater(()->hits.clear());
-        hitCount = 0;
+        //hits.clear();
+        //hitCount = 0;
 //            System.out.println("Enter movie title to search for:");
 //            String movieTitle = sc.nextLine();
 //            if (movieTitle.equalsIgnoreCase("quit"))
@@ -58,7 +59,7 @@ public class Program {
         for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");
             Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
-            thread.start();  // thread instansiation maybe here
+            thread.start();  // thread instantiation maybe here
         }
         //main thread sleeps to make sure results populate list before printout
         //here we could use listener on 'List<MovieInfo>hits' to update javafx element without having to use sleep
