@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
+import model.MovieCell;
 import model.Program;
 import parsers.*;
 
@@ -51,73 +53,33 @@ public class Controller {
         //p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
-        listview.setItems(p.getHits());
-        p.startLogin();
-        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
+        listview.setItems(Program.getHits());
+        listview.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
             @Override
-            public void onChanged(Change<? extends MovieInfo> c) {
-
-                //Image image = new Image("url:QXafzn2eLmaC9kHfnuuKgHQ8xXxh_MNKeT0WxzglNQkVt4wnuEFM7UQVjRxrS8fKhB_iy5MAEZhAwv3E5QKXUi1_TRT4j5H9NnbZ5ZbtOcj57iUA683gdtgO7ZCszpVUq_KLBg.webp");
-                String imgUrl = Program.getHits().get(0).getImagePath();
-
-                //----------------------------------------------
-                //working with jpg in working directory
-                //Image image = new Image("file:test.webp");
-                Image image = new Image(imgUrl);
-                imageView.setImage(image);
-                listview.refresh();
-                //----------------------------------------------
-
-//                String url = Program.getHits().get(0).getImagePath();
-//                int count = 1;
-//                BufferedImage saveImage = null;
-//                URL imgUrl = null;
-//                try{
-//                    imgUrl = new URL(url);
-//                    System.out.println(url);
-//                    System.out.println(imgUrl);
-//                    saveImage = ImageIO.read(imgUrl);
-//                    if(saveImage != null){
-//                        System.out.println("saveimage not null");
-//                    }else{
-//                        System.out.println("saveimage is null");
-//                    }
-//                    ImageIO.write(saveImage, "png",new File("img_" + count + ".png"));
-//
-//                }catch(MalformedURLException e){
-//                    e.printStackTrace();
-//                }catch(IOException e){
-//                    e.printStackTrace();
-//                }
-
-
-
-//                for(MovieInfo movie: Program.getHits()){
-//                    if(movie != null){
-//                        try{
-//                            imgUrl = new URL(movie.getImagePath());
-//                            saveImage = ImageIO.read(imgUrl);
-//                            ImageIO.write(saveImage, "png",new File("img_" + count + ".png"));
-//
-//                        }catch(MalformedURLException e){
-//                            e.printStackTrace();
-//                        }catch(IOException e){
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    Image image = new Image("img_1.png");
-//                    imageView = new ImageView(image);
-//
-//                }
-
-                listview.refresh();
-                //imageView = new ImageView(image);
-//                Image image = d;
-//                imageView.setImage(image);
-//                //imageView.isPreserveRatio();
-
+            public ListCell call(ListView param) {
+                return new MovieCell();
             }
         });
+        p.startLogin();
+
+        //listview.setItems(Program.getHits());
+//        //--------------------------------------------------------
+//        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
+//            @Override
+//            public void onChanged(Change<? extends MovieInfo> c) {
+//
+//                //Image image = new Image("url:QXafzn2eLmaC9kHfnuuKgHQ8xXxh_MNKeT0WxzglNQkVt4wnuEFM7UQVjRxrS8fKhB_iy5MAEZhAwv3E5QKXUi1_TRT4j5H9NnbZ5ZbtOcj57iUA683gdtgO7ZCszpVUq_KLBg.webp");
+//                String imgUrl = Program.getHits().get(0).getImagePath();
+//
+//                //----------------------------------------------
+//                //working with jpg in working directory
+//                //Image image = new Image("file:test.webp");
+//                Image image = new Image(imgUrl);
+//                imageView.setImage(image);
+//                listview.refresh();
+//                //----------------------------------------------
+//            }
+//        });//----------------------------------------------------
     }
 
 
