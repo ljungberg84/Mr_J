@@ -28,9 +28,9 @@
           </Menu>
             <Menu fx:id="accounts" mnemonicParsing="false" text="Accounts">
                <items>
-                  <MenuItem fx:id="netflixAccount" mnemonicParsing="false" onAction="#popup" text="Netflix" />
-                  <MenuItem mnemonicParsing="false" text="HBO" />
-                  <MenuItem mnemonicParsing="false" text="Viaplay" />
+                  <MenuItem fx:id="netflixAccount" mnemonicParsing="false" onAction="#AccountButtonHandler" text="Netflix" />
+                  <MenuItem fx:id="hboAccount" mnemonicParsing="false" onAction="#AccountButtonHandler" text="HBO" />
+                  <MenuItem fx:id="viaplayAccount" mnemonicParsing="false" onAction="#AccountButtonHandler" text="Viaplay" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>

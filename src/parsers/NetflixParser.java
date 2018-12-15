@@ -33,8 +33,8 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
     public NetflixParser() {
         super("https://www.netflix.com/se/search", "netflixCookies");
         //super.cookieHandler = new MyCookieHandler(browser, "netflixCookies");
-        account.setPassword("");
-        account.setUserName("");
+        //account.setPassword("");
+        //account.setUserName("");
 
     }
 
@@ -59,21 +59,21 @@ public class NetflixParser extends ServiceParser implements Searcher, Loginable 
         browser.get("https://www.netflix.com/search"); //searchUrl
         try{
 
-//            WebElement emailField = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
-//            WebElement passwordField = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_password")));
-//
-//            emailField.sendKeys(userName);
-//            passwordField.sendKeys(password);
-//
-//            List<WebElement> buttonList = browser.findElementsByTagName("Button");
-//            WebElement loginButton = buttonList.get(1);
-//            loginButton.click();
-//
-//            WebElement userButton = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
-//            userButton.click();
+            WebElement emailField = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
+            WebElement passwordField = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_password")));
+
+            emailField.sendKeys(getAccount().getUserName());
+            passwordField.sendKeys(getAccount().getPassword());
+
+            List<WebElement> buttonList = browser.findElementsByTagName("Button");
+            WebElement loginButton = buttonList.get(1);
+            loginButton.click();
+
+            WebElement userButton = new WebDriverWait(browser, 10).
+                    until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
+            userButton.click();
 
             //example: move to movie url efter cookies
             //browser.get("https://www.netflix.com/watch/80021955?tctx=0%2C0%2C%2C%2C");

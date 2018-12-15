@@ -65,6 +65,11 @@ public class HboParser extends ServiceParser implements Searcher, Loginable {
     }
 
     @Override
+    public String toString() {
+        return "HBO";
+    }
+
+    @Override
     public void login() {
         System.out.println("Starting HBO login");
         browser = new ChromeDriver(options);

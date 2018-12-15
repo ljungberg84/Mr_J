@@ -36,6 +36,11 @@ public class Controller {
     Menu accounts;
     @FXML
     MenuItem netflixAccount;
+    @FXML
+    MenuItem hboAccount;
+    @FXML
+    MenuItem viaplayAccount;
+
 
 
     Program p = new Program();
@@ -48,40 +53,45 @@ public class Controller {
         //ServiceParser showtime = new ShowtimeParser();
         ServiceParser svtParser = new SVTPlayParser();
 
-        //p.addService("hbo", hboParser);
-        p.addService("netflix", netflixParser);
-        //p.addService("Svt play", svtParser);
-        //p.addService("viaplay", viaplayParser);
+        p.addService("HBO", hboParser);
+        p.addService("Netflix", netflixParser);
+        p.addService("Svt play", svtParser);
+        p.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
         listview.setItems(p.getHits());
         p.startLogin();
         p.getHits().addListener((ListChangeListener<MovieInfo>) c -> listview.refresh());
 
-
     }
-
 
     @FXML
     public void search(){
         Thread searchThread = new Thread(()->p.startSearch(search.getText()));
         searchThread.start();
-
     }
-
-
 
     @FXML
     private void printText() {
         System.out.println(search.getText());
     }
 
+    @FXML
+    public void AccountButtonHandler(ActionEvent actionEvent){
+        if(actionEvent.getSource().equals(netflixAccount)){
+            popup(p.getServices().get("Netflix"));
+        } else if(actionEvent.getSource().equals(viaplayAccount)) {
+            popup(p.getServices().get("Viaplay"));
+        } else if(actionEvent.getSource().equals(hboAccount)) {
+            popup(p.getServices().get("HBO"));
+        }
+    }
 
     @FXML
-    public void popup(ActionEvent actionEvent){
+    public void popup(ServiceParser service){
         Stage popupWindow=new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("Netflix account");
+        popupWindow.setTitle(service.toString());
         Label label1= new Label("Please enter your login details:");
         Label label2 = new Label("Username:");
         TextField userNameField = new TextField ();
@@ -92,18 +102,23 @@ public class Controller {
 
         Button button1= new Button("Save");
         button1.setOnAction(e -> {
-            userNameField.getText();
-            passwordField.getText();
+            saveAccount(service, userNameField.getText(), passwordField.getText());
             popupWindow.close();
         });
 
         VBox layout= new VBox(10);
-        layout.getChildren().addAll(label2, userNameField, label3, passwordField, label1, button1);
+        layout.getChildren().addAll(label1, label2, userNameField, label3, passwordField, button1);
         layout.setAlignment(Pos.CENTER);
         Scene scene1= new Scene(layout, 300, 200);
         popupWindow.setScene(scene1);
         popupWindow.showAndWait();
 
+    }
+
+    public void saveAccount(ServiceParser service, String username, String password){
+        service.getAccount().setUserName(username);
+        service.getAccount().setPassword(password);
+        System.out.println("Username and password saved");
     }
 }
 

@@ -111,6 +111,11 @@ public class ViaplayParser extends ServiceParser implements Searcher, Loginable 
             browser.close();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Viaplay";
+    }
 }
 
 

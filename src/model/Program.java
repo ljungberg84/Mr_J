@@ -30,6 +30,9 @@ public class Program {
         hits = FXCollections.observableArrayList();
     }
 
+    public Map<String, ServiceParser> getServices() {
+        return services;
+    }
 
     public void startLogin(){
         System.out.println("Starting login");

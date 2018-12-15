@@ -33,7 +33,7 @@ public abstract class ServiceParser implements Searcher {
         this.searchUrl = searchUrl;
         this.options = new ChromeOptions();
         this.account = new Account();
-        options.setHeadless(false);
+        options.setHeadless(true);
         //this.browser = new ChromeDriver(options);
         this.cookieHandler = new MyCookieHandler(options, fileName);
 
@@ -75,6 +75,8 @@ public abstract class ServiceParser implements Searcher {
 //    }
 
     public abstract void login();
+
+
 
     public abstract MovieInfo search(String movieTitle);
 
