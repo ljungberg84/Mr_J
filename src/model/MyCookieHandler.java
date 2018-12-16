@@ -14,16 +14,18 @@ import java.util.StringTokenizer;
 public class MyCookieHandler {
 
     private File cookieFile;
+    private String fileName;
 
     public MyCookieHandler(String filename) {
         this.cookieFile = new File(filename);
+        this.fileName = filename;
     }
 
     public void saveCookies(ChromeDriver browser){
         try{
             cookieFile.delete();
             cookieFile.createNewFile();
-            FileWriter fileWriter = new FileWriter(cookieFile);
+            FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bWrite = new BufferedWriter(fileWriter);
 
             for (Cookie ck : browser.manage().getCookies()) {
@@ -45,14 +47,16 @@ public class MyCookieHandler {
 
     //method needs to examine cookie date in file and not only check if exists
     public boolean hasExpired(){
-        return cookieFile.exists();
+        //return cookieFile.exists();
+        return false;
     }
 
     public void loadCookies(ChromeDriver browser) {
 
         browser.get("https://google.com");
         try{
-            FileReader fileReader = new FileReader(cookieFile);
+
+            FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String strLine;

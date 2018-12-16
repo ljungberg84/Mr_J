@@ -12,12 +12,13 @@ import java.util.List;
 public class NetflixService extends ServiceHandler {
 
     public NetflixService() {
-        super("netflix_cookies");
+        super("netflix_cookies", "hannahannahanna@hotmail.com", "Angus100Norpan200");
     }
 
     @Override
     public MovieInfo search(String movieTitle) {
-        if (cookieHandler.hasExpired()) {
+        //if (cookieHandler.hasExpired()) {
+        if(true){
             System.out.println("Netflix cookieFile exists");
             cookieHandler.loadCookies(browser);
             System.out.println("Loading cookies");
@@ -83,7 +84,7 @@ public class NetflixService extends ServiceHandler {
             //System.out.println(e.getMessage());
             e.printStackTrace();
         }finally {
-            //browser.close();
+            browser.close();
         }
         return  null;
     }
@@ -109,7 +110,7 @@ public class NetflixService extends ServiceHandler {
     @Override
     public void login() {
         if(account.hasLogin()){
-            System.out.println("login for netflix found");
+           // System.out.println("login for netflix found");
             if (cookieHandler.hasExpired()){
                 System.out.println("expired cookies");
             }else{
@@ -143,10 +144,11 @@ public class NetflixService extends ServiceHandler {
             userButton.click();
 
             cookieHandler.saveCookies(browser);
+            System.out.println("netflix logged in");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            browser.close();
+            //browser.close();
         }
     }
 }

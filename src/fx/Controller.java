@@ -1,12 +1,16 @@
 package fx;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.MovieCell;
@@ -25,7 +29,7 @@ import java.net.URL;
 public class Controller {
 
     @FXML
-    ListView<MovieInfo> listview;
+    ListView<MovieInfo> listView;
     @FXML
     Button searchButton;
     @FXML
@@ -44,18 +48,18 @@ public class Controller {
     public void initialize(){
         ServiceHandler hboParser = new HboService();
         ServiceHandler netflixParser = new NetflixService();
-        ServiceHandler viaplayParser = new ViaplayService();
+        //ServiceHandler viaplayParser = new ViaplayService();
         //ServiceHandler showtime = new ShowtimeParser();
         //ServiceHandler svtParser = new SVTPlayHandler();
 
         p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
         //p.addService("Svt play", svtParser);
-        p.addService("viaplay", viaplayParser);
+        //p.addService("viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
-        listview.setItems(Program.getHits());
-        listview.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
+        listView.setItems(Program.getHits());
+        listView.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
             @Override
             public ListCell call(ListView param) {
                return new MovieCell();
@@ -88,8 +92,13 @@ public class Controller {
     @FXML
     public void search(){
         Program.getHits().clear();
-        Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
-        searchThread.start();
+        //Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
+        //searchThread.start();
+        p.startSearch(searchField.getText());
+    }
+
+    public void goToPlayMovie(MovieInfo movie){
+        //go to movie url
     }
 
 

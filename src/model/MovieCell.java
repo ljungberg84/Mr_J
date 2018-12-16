@@ -61,6 +61,7 @@ public class MovieCell extends ListCell<MovieInfo> {
 
     @Override
     protected void updateItem(MovieInfo item, boolean empty) {
+        System.out.println(Program.getHits().size());
         super.updateItem(item, empty);
         if(empty || item == null){
             //titleLabel.setText("ingen hittades");

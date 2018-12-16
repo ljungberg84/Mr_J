@@ -6,6 +6,7 @@ public class UserAccount {
     private String password = "";
 
     public boolean hasLogin(){
+        System.out.println("has login");
         return (!userName.isEmpty() && !password.isEmpty());
     }
 

@@ -3,6 +3,9 @@ package model;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import parsers.MovieInfo;
 import parsers.ServiceHandler;
 
@@ -38,6 +41,7 @@ public class Program {
         for (ServiceHandler service : services.values()) {
             Thread thread = new Thread(service::login);
             thread.start();
+
         }
 
 //            if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
@@ -56,31 +60,31 @@ public class Program {
     public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
-        //Platform.runLater(()->hits.clear());
+        Platform.runLater(()->hits.clear());
         //hits.clear();
 
         for (ServiceHandler service : services.values()) {
             System.out.println("Starting thread");
-            Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
-            thread.start();  // thread instantiation maybe here
-        }
-        //main thread sleeps to make sure results populate list before printout
-        //here we could use listener on 'List<MovieInfo>hits' to update javafx element without having to use sleep
-//        try {
-//            Thread.sleep(10000);
-//        }catch(InterruptedException e){
-//
-//        }
-//        for (MovieInfo movie: hits) {
-//            if(movie != null){
-//                System.out.println(movie.getTitle() +" : " + movie.getUrl() + " : " + movie.getSource());
-//                hitCount ++;
-//            }
-//        }
-//        if (hitCount == 0){
-//            System.out.println("Sorry, " + searchText + " was not found on any streaming platform");
-//        }
+            //Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
+            //thread.start();  // thread instantiation maybe here
+            Task task = new Task<MovieInfo>() {
+                @Override
+                protected MovieInfo call() throws Exception {
+                    return service.searchHandler(searchFrase);
+                }
+            };
+            task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                   hits.add((MovieInfo) task.getValue());
+                }
+            });
+            Thread thread = new Thread(task);
+            thread.setDaemon(true);
+            thread.start();
 
+            //hits.add();
+        }
     }
 
     public void addService(String name, ServiceHandler service){

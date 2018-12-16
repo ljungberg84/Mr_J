@@ -16,7 +16,7 @@ public class HboService extends ServiceHandler{
     @Override
     public MovieInfo search(String movieTitle) {
 
-        if (cookieHandler.hasExpired()) {
+        if (cookieHandler.getCookieFile().exists() && !cookieHandler.hasExpired()) {
             System.out.println("Hbo nordic cookieFile exists");
             cookieHandler.loadCookies(browser);
             System.out.println("Loading cookies");
@@ -71,7 +71,7 @@ public class HboService extends ServiceHandler{
             //System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
-            //browser.close();
+            browser.close();
         }
         return null;
     }
@@ -121,7 +121,7 @@ public class HboService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            browser.close();
+            //browser.close();
         }
     }
 }

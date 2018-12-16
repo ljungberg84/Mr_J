@@ -16,8 +16,14 @@ public abstract class ServiceHandler extends WebDriverHandler {
     protected UserAccount account;
 
     public ServiceHandler(String cookieFileName) {
+        this(cookieFileName, "", "");
+    }
+
+    public ServiceHandler(String cookieFileName, String userName, String password) {
         this.cookieHandler = new MyCookieHandler(cookieFileName);
         this.account = new UserAccount();
+        account.setUserName(userName);
+        account.setPassword(password);
     }
 
     public abstract MovieInfo search(String title);
@@ -28,6 +34,13 @@ public abstract class ServiceHandler extends WebDriverHandler {
         browser = new ChromeDriver(options);
         //hits.add(search(title));
         Program.addHits(search(title));
+    }
+
+    public MovieInfo  searchHandler(String title){
+        browser = new ChromeDriver(options);
+        return search(title);
+        //hits.add(search(title));
+        //Program.addHits(search(title));
     }
 
     public UserAccount getAccount() {
