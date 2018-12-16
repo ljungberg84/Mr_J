@@ -19,22 +19,6 @@ public class HboService extends ServiceHandler{
     public MovieInfo search(String movieTitle) {
 
         browser = new ChromeDriver(options);
-
-//        if (hasCookies()) {
-//            System.out.println("Hbo nordic cookieFile exists");
-//            cookieHandler.loadCookies(browser);
-//            System.out.println("Loading cookies");
-//        }
-//        else {
-//            System.out.println("Hbo nordic cookieFile not found");
-//        }
-//        if (cookieHandler.getFile().exists()) {
-//            System.out.println("HBO file exists");
-//            cookieHandler.loadCookies(browser);
-//            System.out.println("Loading cookies");
-//        } else {
-//            System.out.println("HBO file not found");
-//        }
         browser.get("https://se.hbonordic.com/search");
         try {
             WebElement searchField = new WebDriverWait(browser, 3).
@@ -56,16 +40,16 @@ public class HboService extends ServiceHandler{
             String imgUrl = movieNode.getAttribute("style");
 
 
-            System.out.println("title: " + title);
-            System.out.println(imgUrl);
+            //System.out.println("title: " + title);
+            //System.out.println(imgUrl);
             try{
                 imgUrl = imgUrl.substring(imgUrl.indexOf("(") + 2, imgUrl.indexOf(")") - 1);
             }catch (Exception e){
                 System.out.println("fel vid bildhämtning");
                 imgUrl = null;
             }
-            System.out.println("imgurl: " + imgUrl);
-            System.out.println("url: " + url);
+            //System.out.println("imgurl: " + imgUrl);
+            //System.out.println("url: " + url);
 
 
 
@@ -77,7 +61,6 @@ public class HboService extends ServiceHandler{
 
         } catch (Exception e) {
             //System.out.println("netflix waiting for login fields failed");
-            //System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
             browser.close();
@@ -87,18 +70,7 @@ public class HboService extends ServiceHandler{
 
     @Override
     public void login() {
-//        if(account.hasLogin()){
-//            System.out.println("login for netflix found");
-//            if (cookieHandler.isValid()){
-//                System.out.println("expired cookies");
-//            }else{
-//                System.out.println("cookies available, cancelling login");
-//                return;
-//            }
-//        }else{
-//            System.out.println("cant log in without account");
-//            return;
-//        }
+
         System.out.println("Starting HBO login");
         browser = new ChromeDriver(options);
         browser.get("https://se.hbonordic.com/sign-in");
@@ -129,7 +101,7 @@ public class HboService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            //browser.close();
+            browser.close();
         }
     }
 }

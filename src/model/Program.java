@@ -1,5 +1,6 @@
 package model;
 
+import fx.Controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +14,6 @@ import java.util.*;
 
 public class Program {
 
-    Scanner sc = new Scanner(System.in);
-
-    //List<Parsable> services;
     private Map<String, Service> services;
     private ObservableList<MovieInfo> hits;
 
@@ -24,17 +22,12 @@ public class Program {
     }
 
     public synchronized void addHits(MovieInfo hit){
-        //Platform.runLater(()->hits.add(hit));
         if(hit != null){
-            System.out.println("lägger till film");
             this.hits.add(hit);
         }
     }
 
-
-
     public Program() {
-        //this.services = new ArrayList<Parsable>();
         services = new HashMap<>();
         hits = FXCollections.observableArrayList();
     }
@@ -57,30 +50,13 @@ public class Program {
                 System.out.println("no login or cookies, cant log in");
             }
         }
-
-//            if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
-//                //System.out.println("Username and password found");
-//
-//                if (service.getCookieHandler().isValid()) {
-//                    System.out.println("Logging in");
-//                    Thread thread = new Thread(service::login);
-//                    thread.start();
-//                }
-//            } else {
-//                System.out.println("No username found");
-//            }
-//        }
     }
     public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
-        //Platform.runLater(()->hits.clear());
-        //hits.clear();
 
         for (Service service : services.values()) {
             System.out.println("Starting thread");
-            //Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
-            //thread.start();  // thread instantiation maybe here
             Task task = new Task<MovieInfo>() {
                 @Override
                 protected MovieInfo call() throws Exception {
@@ -90,7 +66,6 @@ public class Program {
             task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
-                   //hits.add((MovieInfo) task.getValue());
                     addHits(((Task<MovieInfo>) task).getValue());
                     System.out.println(hits.size());
                 }
@@ -98,14 +73,11 @@ public class Program {
             Thread thread = new Thread(task);
             thread.setDaemon(true);
             thread.start();
-
-            //hits.add();
         }
     }
 
     public void addService(String name, ServiceHandler service){
         if(service != null && name != null){
-            //services.add(service);
             services.put(name, service);
         }
     }
@@ -113,13 +85,4 @@ public class Program {
     public Map<String, Service> getServices() {
         return services;
     }
-
-    //    public static void addHit(MovieInfo movieInfo){
-//        synchronized (hits){
-//            Platform.runLater(()->hits.add(movieInfo));
-//            //hits.add(movieInfo);
-//        }
-//    }
-
-
 }

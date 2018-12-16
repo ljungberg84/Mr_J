@@ -7,9 +7,9 @@
 //import org.openqa.selenium.support.ui.WebDriverWait;
 //
 //
-//public class SVTPlayHandler extends ServiceHandler {
+//public class SvtService extends ServiceHandler {
 //
-//    public SVTPlayHandler() {
+//    public SvtService() {
 //        super("https://www.svtplay.se", "svtCookies");
 //    }
 //

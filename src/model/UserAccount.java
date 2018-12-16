@@ -15,7 +15,6 @@ public class UserAccount {
     }
 
     public boolean hasLogin(){
-        //System.out.println("has login");
         return (!userName.isEmpty() && !password.isEmpty());
     }
 
@@ -36,7 +35,6 @@ public class UserAccount {
     public void setPassword(String password) {
         if(password != null){
             this.password = password;
-
         }
     }
 }

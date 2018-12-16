@@ -19,6 +19,6 @@ public class WebDriverHandler {
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
         prefs.put("disk-cache-size", 4096);
-        //options.setExperimentalOption("prefs", prefs);
+        options.setExperimentalOption("prefs", prefs);
     }
 }

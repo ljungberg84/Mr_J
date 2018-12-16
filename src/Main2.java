@@ -8,7 +8,7 @@ public class Main2 {
         //ServiceHandler netflixParser = new NetflixService();
         //ServiceHandler viaplayParser = new ViaplayParser();
         //ServiceHandler showtime = new ShowtimeParser();
-        //ServiceHandler svtplayParser = new SVTPlayHandler();
+        //ServiceHandler svtplayParser = new SvtService();
 
         //Program program = new Program();
 

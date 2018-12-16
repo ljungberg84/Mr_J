@@ -1,5 +1,6 @@
 package fx;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class Controller {
         ServiceHandler netflixParser = new NetflixService();
         ServiceHandler viaplayParser = new ViaplayService();
         //ServiceHandler showtime = new ShowtimeParser();
-        //ServiceHandler svtParser = new SVTPlayHandler();
+        //ServiceHandler svtParser = new SvtService();
 
         p.addService("Hbo", hboParser);
         p.addService("Netflix", netflixParser);
@@ -62,58 +63,20 @@ public class Controller {
             }
         });
         p.startLogin();
-
-        //listview.setItems(Program.getHits());
-//        //--------------------------------------------------------
-//        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
-//            @Override
-//            public void onChanged(Change<? extends MovieInfo> c) {
-//
-//                //Image image = new Image("url:QXafzn2eLmaC9kHfnuuKgHQ8xXxh_MNKeT0WxzglNQkVt4wnuEFM7UQVjRxrS8fKhB_iy5MAEZhAwv3E5QKXUi1_TRT4j5H9NnbZ5ZbtOcj57iUA683gdtgO7ZCszpVUq_KLBg.webp");
-//                String imgUrl = Program.getHits().get(0).getImagePath();
-//
-//                //----------------------------------------------
-//                //working with jpg in working directory
-//                //Image image = new Image("file:test.webp");
-//                Image image = new Image(imgUrl);
-//                imageView.setImage(image);
-//                listview.refresh();
-//                //----------------------------------------------
-//            }
-//        });//----------------------------------------------------
     }
-
 
     @FXML
     public void search(){
-        System.out.println("deleting hits");
-        p.getHits().clear();
-        System.out.println("hits count: " + p.getHits().size());
-        //Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
-        //searchThread.start();
+        searchButton.setDisable(true);
         p.startSearch(searchField.getText());
     }
-
-//    public void goToPlayMovie(MovieInfo movie){
-//        String service = movie.getSource().substring(0, movie.getSource().length() - 3);
-//        p.getServices().get(service)
-//    }
-
-
 
     @FXML
     private void printText() {
         System.out.println(searchField.getText());
     }
 
-//    private Image downloadWithTask(String url) {
-//        Task<Image> task = new Task<Image>() {
-//            @Override
-//            protected Image call() throws Exception {
-//                Image image = new Image(url, false);
-//                //throw new Exception();
-//                return image;
-//            }
-//        };
-//    }
+    public Button getSearchButton() {
+        return searchButton;
+    }
 }

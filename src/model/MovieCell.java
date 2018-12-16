@@ -14,16 +14,13 @@ import javafx.scene.text.Font;
 import parsers.MovieInfo;
 
 public class MovieCell extends ListCell<MovieInfo> {
-    VBox vbox = new VBox();
-    ImageView imageView = new ImageView();
-    ImageView sourceImageView = new ImageView();
-    //Image image;
-    Label titleLabel = new Label();
-    Label infoLabel = new Label();
-    Label sourceLabel = new Label();
-    //Label sourceLabel = new Label();
-    Button button = new Button();
 
+    private VBox vbox = new VBox();
+    private ImageView imageView = new ImageView();
+    private ImageView sourceImageView = new ImageView();
+    private Label titleLabel = new Label();
+    private Label infoLabel = new Label();
+    private Label sourceLabel = new Label();
 
     public MovieCell(){
         super();
@@ -45,31 +42,18 @@ public class MovieCell extends ListCell<MovieInfo> {
         sourceImageView.setFitWidth(120);
         sourceImageView.setPreserveRatio(true);
 
-
-
         imageView.setFitWidth(225);
         imageView.setPreserveRatio(true);
         VBox.setVgrow(imageView, Priority.ALWAYS);
-
-//        button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("button clicked");
-//            }
-//        });
     }
 
     @Override
     protected void updateItem(MovieInfo item, boolean empty) {
-        System.out.println("updateItem");
-        //System.out.println(Program.getHits().size());
         super.updateItem(item, empty);
         if(empty || item == null){
-            //titleLabel.setText("ingen hittades");
-            //setText("test");
-            System.out.println("empty");
+            //System.out.println("empty");
         }else{
-            System.out.println("match");
+            //System.out.println("match");
             String imgURl = item.getImagePath();
             if(imgURl == null || imgURl.substring(imgURl.length() - 4, imgURl.length()).equalsIgnoreCase("webp")){
                 imageView.setImage(new Image("file:resources//imagenotavailable.png"));
@@ -78,20 +62,10 @@ public class MovieCell extends ListCell<MovieInfo> {
             }
             titleLabel.setText(item.getTitle());
             infoLabel.setText("Found on:");
-            //sourceLabel.setText(item.getSource());
             sourceImageView.setImage(new Image("file:resources//" + item.getSource()));
 
             setGraphic(vbox);
-//            System.out.println(item.getUrl());
-//            System.out.println(item.getSource());
-//            System.out.println("test " + item.getTitle());
+
         }
-
-        //do something to check if working image
-        //imageView.setImage(new Image(item.getImagePath()));
-        //titleLabel.setText(item.getTitle());
-        //button.setText(item.getSource());
-
-
     }
 }

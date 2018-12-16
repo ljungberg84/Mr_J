@@ -19,16 +19,6 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
         this.account = account;
     }
 
-//    @Override
-//    public MovieInfo search(String title){
-//        browser = new ChromeDriver(options);
-//        if(cookieHandler != null){
-//            cookieHandler.loadCookies(browser);
-//        }
-//        //return search(title);
-//    }
-
-
     public void playMovie(MovieInfo movie){
         ChromeOptions playOptions = new ChromeOptions().setHeadless(false).addArguments("start-maximized");
         browser = new ChromeDriver(playOptions);
@@ -49,44 +39,6 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
         return (cookieHandler != null && cookieHandler.isValid());
     }
 
-//    @Override
-//    public void login(){
-//        if(account != null && account.hasLogin()){
-//            if (cookieHandler.isValid()) {
-//                System.out.println("expired cookies");
-//                return;
-//            }
-//            else {
-//
-//            }
-//        }
-//            if (cookieHandler.isValid()){
-//                System.out.println("expired cookies");
-//            }else{
-//                System.out.println("cookies available, cancelling login");
-//                return;
-//            }
-//        }else{
-//            System.out.println("cant log in without account");
-//            return;
-//        }
-//    }
-
-    //public void  searchHandler(String title, List<MovieInfo> hits){
-        //browser = new ChromeDriver(options);
-        //hits.add(search(title));
-        //Program.addHits(search(title));
-    //}
-
-//    public MovieInfo  searchHandler(String title){
-//        browser = new ChromeDriver(options);
-//        return search(title);
-//        //hits.add(search(title));
-//        //Program.addHits(search(title));
-//    }
-
-
-
     public UserAccount getAccount() {
         return this.account;
     }
@@ -94,7 +46,6 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
     public MyCookieHandler getCookieHandler() {
         return cookieHandler;
     }
-
 
     //TODO continue with viaplay, return image and stuff
     //TODO login on startSearch, if cookies out of date: login and gather new ones, else: use cookies to login before search

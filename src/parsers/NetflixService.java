@@ -21,8 +21,8 @@ public class NetflixService extends ServiceHandler {
     public MovieInfo search(String movieTitle) {
         browser = new ChromeDriver(options);
         //super.search(movieTitle);
-        if (hasCookies()) { // implement this code (isValid())when possible
-            System.out.println("Netflix cookieFile exists");
+        if (hasCookies()) {
+            System.out.println("Netflix cookies exists");
             cookieHandler.loadCookies(browser);
             System.out.println("Loading cookies");
         } else {
@@ -46,8 +46,6 @@ public class NetflixService extends ServiceHandler {
                     until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@data-uia='search-box-input']")));
             itemSearchField.sendKeys(movieTitle);
 
-
-            //get movie element with all info
             WebElement movieNode = new WebDriverWait(browser, 3).until(ExpectedConditions.
                     presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
                             " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
@@ -56,7 +54,6 @@ public class NetflixService extends ServiceHandler {
             String title = movieNode.getAttribute("aria-label");
             String url = movieNode.getAttribute("href");
 
-            //narrowing the element to get image url
             movieNode = movieNode.findElement(By.xpath("//img[@class='boxart-image boxart-image-in-padded-container']"));
             //get image url from the remaining movie element
             String imgUrl = movieNode.getAttribute("src");
@@ -75,18 +72,6 @@ public class NetflixService extends ServiceHandler {
 
     @Override
     public void login () {
-//        if(account.hasLogin()){
-//           // System.out.println("login for netflix found");
-//            if (cookieHandler.isValid()){
-//                System.out.println("expired cookies");
-//            }else{
-//                System.out.println("cookies available, cancelling login");
-//                return;
-//            }
-//        }else{
-//            System.out.println("cant log in without account");
-//            return;
-//        }
 
         System.out.println("Starting netflix login");
         browser = new ChromeDriver(options);

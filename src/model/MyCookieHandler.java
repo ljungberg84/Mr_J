@@ -56,13 +56,10 @@ public class MyCookieHandler {
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
                 String strLine;
-                System.out.println("innan while");
                 while((strLine=bufferedReader.readLine()) != null){
-                    System.out.println("efter while");
                     String[] cookie = strLine.split(";");
                     String value = cookie[4];
                     if(value.equalsIgnoreCase("null")){
-                        System.out.println("value is null");
                         continue;
                     }
 
@@ -71,22 +68,15 @@ public class MyCookieHandler {
                     DateFormat f = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.UK);
                     try {
                         Date d = f.parse(value);
-                        System.out.println("cookie: " + d);
-                        System.out.println("now: +" + new Date().toString());
                         if(d.before(new Date())){
-                            System.out.println("cookie expired!");
                             return false;
-                        }else{
-                            System.out.println("cookie fine!");
                         }
                     } catch (ParseException e) {
-                        System.out.println("fel1");
                         e.printStackTrace();
                     }
                 }
 
             }catch (Exception e){
-                System.out.println("error reading file");
                 e.printStackTrace();
             }
             return true;
@@ -116,9 +106,6 @@ public class MyCookieHandler {
 
                     String val;
                     if(!(val = token.nextToken()).equals("null")){
-                        //Long date = Date.parse(val);
-                        //Long date = Date.parse(val);
-                        //expiry = new Date(val);
 
                         //"EEE MMM dd HH:mm:ss zzz yyyy"
 
@@ -126,7 +113,6 @@ public class MyCookieHandler {
                         try {
                             Date d = f.parse(val);
                             long milliseconds = d.getTime();
-                            //System.out.println("new date: " + d);
                             expiry = new Date(milliseconds);
                         } catch (ParseException e) {
                             e.printStackTrace();
