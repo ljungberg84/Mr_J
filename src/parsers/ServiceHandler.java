@@ -2,6 +2,7 @@ package parsers;
 
 import model.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public abstract class ServiceHandler extends WebDriverHandler implements Service {
@@ -29,7 +30,8 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
 
 
     public void playMovie(MovieInfo movie){
-        browser = new ChromeDriver(options.setHeadless(false));
+        ChromeOptions playOptions = new ChromeOptions().setHeadless(false).addArguments("start-maximized");
+        browser = new ChromeDriver(playOptions);
         if (hasCookies()){
             cookieHandler.loadCookies(browser);
         }

@@ -55,7 +55,7 @@ public class ViaplayService extends ServiceHandler{
             System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
-            //  browser.close();
+            browser.close();
         }
         return null;
     }
