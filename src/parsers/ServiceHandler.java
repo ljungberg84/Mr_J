@@ -1,50 +1,83 @@
 package parsers;
 
-import model.MyCookieHandler;
-import model.Program;
-import model.UserAccount;
-import model.WebDriverHandler;
-import org.openqa.selenium.Platform;
+import model.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.List;
 
-
-public abstract class ServiceHandler extends WebDriverHandler {
+public abstract class ServiceHandler extends WebDriverHandler implements Service {
 
     protected MyCookieHandler cookieHandler;
     protected UserAccount account;
 
-    public ServiceHandler(String cookieFileName) {
-        this(cookieFileName, "", "");
+    public ServiceHandler() {
+        this(null, null);
     }
 
-    public ServiceHandler(String cookieFileName, String userName, String password) {
-        this.cookieHandler = new MyCookieHandler(cookieFileName);
-        this.account = new UserAccount();
-        account.setUserName(userName);
-        account.setPassword(password);
+    public ServiceHandler(MyCookieHandler cookieHandler, UserAccount account) {
+        this.cookieHandler = cookieHandler;
+        this.account = account;
     }
 
-    public abstract MovieInfo search(String title);
+//    @Override
+//    public MovieInfo search(String title){
+//        browser = new ChromeDriver(options);
+//        if(cookieHandler != null){
+//            cookieHandler.loadCookies(browser);
+//        }
+//        //return search(title);
+//    }
 
-    public abstract void login();
-
-    public void  searchHandler(String title, List<MovieInfo> hits){
-        browser = new ChromeDriver(options);
-        //hits.add(search(title));
-        Program.addHits(search(title));
+    @Override
+    public Boolean hasLogin(){
+        return (account != null && account.hasLogin());
     }
 
-    public MovieInfo  searchHandler(String title){
-        browser = new ChromeDriver(options);
-        return search(title);
+    @Override
+    public Boolean hasCookies() {
+        return (cookieHandler != null && cookieHandler.isValid());
+    }
+
+
+//    @Override
+//    public void login(){
+//        if(account != null && account.hasLogin()){
+//            if (cookieHandler.isValid()) {
+//                System.out.println("expired cookies");
+//                return;
+//            }
+//            else {
+//
+//            }
+//        }
+//            if (cookieHandler.isValid()){
+//                System.out.println("expired cookies");
+//            }else{
+//                System.out.println("cookies available, cancelling login");
+//                return;
+//            }
+//        }else{
+//            System.out.println("cant log in without account");
+//            return;
+//        }
+//    }
+
+    //public void  searchHandler(String title, List<MovieInfo> hits){
+        //browser = new ChromeDriver(options);
         //hits.add(search(title));
         //Program.addHits(search(title));
-    }
+    //}
+
+//    public MovieInfo  searchHandler(String title){
+//        browser = new ChromeDriver(options);
+//        return search(title);
+//        //hits.add(search(title));
+//        //Program.addHits(search(title));
+//    }
+
+
 
     public UserAccount getAccount() {
-        return account;
+        return this.account;
     }
 
     public MyCookieHandler getCookieHandler() {
@@ -63,3 +96,5 @@ public abstract class ServiceHandler extends WebDriverHandler {
     //TODO replace sleep with listener (in Program) once javafx is connected to Program class
     //TODO research other way to get object returned from thread
 }
+
+

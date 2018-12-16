@@ -1,30 +1,15 @@
 package fx;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.MovieCell;
 import model.Program;
 import parsers.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 
 public class Controller {
 
@@ -46,13 +31,13 @@ public class Controller {
 
 
     public void initialize(){
-        ServiceHandler hboParser = new HboService();
+        //ServiceHandler hboParser = new HboService();
         ServiceHandler netflixParser = new NetflixService();
         //ServiceHandler viaplayParser = new ViaplayService();
         //ServiceHandler showtime = new ShowtimeParser();
         //ServiceHandler svtParser = new SVTPlayHandler();
 
-        p.addService("hbo", hboParser);
+        //p.addService("hbo", hboParser);
         p.addService("netflix", netflixParser);
         //p.addService("Svt play", svtParser);
         //p.addService("viaplay", viaplayParser);
@@ -91,7 +76,9 @@ public class Controller {
 
     @FXML
     public void search(){
+        System.out.println("deleting hits");
         Program.getHits().clear();
+        System.out.println("hits count: " + Program.getHits().size());
         //Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
         //searchThread.start();
         p.startSearch(searchField.getText());

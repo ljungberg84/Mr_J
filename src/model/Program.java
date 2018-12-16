@@ -16,7 +16,7 @@ public class Program {
     Scanner sc = new Scanner(System.in);
 
     //List<Parsable> services;
-    private static Map<String, ServiceHandler> services;
+    private static Map<String, Service> services;
     private static  ObservableList<MovieInfo> hits;
 
     public static ObservableList<MovieInfo> getHits() {
@@ -24,7 +24,12 @@ public class Program {
     }
 
     public synchronized static void addHits(MovieInfo hit){
-        Platform.runLater(()->hits.add(hit));
+        //Platform.runLater(()->hits.add(hit));
+        if(hit != null){
+            System.out.println("lägger till film");
+            hits.add(hit);
+        }
+
 
     }
 
@@ -32,22 +37,33 @@ public class Program {
 
     public Program() {
         //this.services = new ArrayList<Parsable>();
-        this.services = new HashMap<>();
+        services = new HashMap<>();
         hits = FXCollections.observableArrayList();
     }
 
     public void startLogin(){
-        System.out.println("Starting login");
-        for (ServiceHandler service : services.values()) {
-            Thread thread = new Thread(service::login);
-            thread.start();
+        System.out.println("startLogin()");
+        for (Service service : services.values()) {
+            if(service.hasLogin()){
+                System.out.println("login found");
+                if(service.hasCookies()){
+                    System.out.println("cookies found");
 
+                }
+                else{
+                    System.out.println("no cookies but login");
+                    Thread thread = new Thread(service::login);
+                    thread.start();
+                }
+            }else{
+                System.out.println("no login or cookies, cant log in to netflix");
+            }
         }
 
 //            if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
 //                //System.out.println("Username and password found");
 //
-//                if (service.getCookieHandler().hasExpired()) {
+//                if (service.getCookieHandler().isValid()) {
 //                    System.out.println("Logging in");
 //                    Thread thread = new Thread(service::login);
 //                    thread.start();
@@ -60,23 +76,24 @@ public class Program {
     public void startSearch(String searchFrase){
 
         System.out.println("Starting search");
-        Platform.runLater(()->hits.clear());
+        //Platform.runLater(()->hits.clear());
         //hits.clear();
 
-        for (ServiceHandler service : services.values()) {
+        for (Service service : services.values()) {
             System.out.println("Starting thread");
             //Thread thread = new Thread(() -> service.searchHandler(searchFrase, hits));
             //thread.start();  // thread instantiation maybe here
             Task task = new Task<MovieInfo>() {
                 @Override
                 protected MovieInfo call() throws Exception {
-                    return service.searchHandler(searchFrase);
+                    return service.search(searchFrase);
                 }
             };
             task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
-                   hits.add((MovieInfo) task.getValue());
+                   //hits.add((MovieInfo) task.getValue());
+                    addHits(((Task<MovieInfo>) task).getValue());
                 }
             });
             Thread thread = new Thread(task);

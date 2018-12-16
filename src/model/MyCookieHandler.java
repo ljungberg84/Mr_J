@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,8 +47,50 @@ public class MyCookieHandler {
     }
 
     //method needs to examine cookie date in file and not only check if exists
-    public boolean hasExpired(){
+    public boolean isValid(){
+        System.out.println("checking validity");
         //return cookieFile.exists();
+        if(cookieFile.exists()){
+            try{
+                FileReader fileReader = new FileReader(cookieFile);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                String strLine;
+                System.out.println("innan while");
+                while((strLine=bufferedReader.readLine()) != null){
+                    System.out.println("efter while");
+                    String[] cookie = strLine.split(";");
+                    String value = cookie[4];
+                    if(value.equalsIgnoreCase("null")){
+                        System.out.println("value is null");
+                        continue;
+                    }
+
+                    //"EEE MMM dd HH:mm:ss zzz yyyy"
+
+                    DateFormat f = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.UK);
+                    try {
+                        Date d = f.parse(value);
+                        System.out.println("cookie: " + d);
+                        System.out.println("now: +" + new Date().toString());
+                        if(d.before(new Date())){
+                            System.out.println("cookie expired!");
+                            return false;
+                        }else{
+                            System.out.println("cookie fine!");
+                        }
+                    } catch (ParseException e) {
+                        System.out.println("fel1");
+                        e.printStackTrace();
+                    }
+                }
+
+            }catch (Exception e){
+                System.out.println("error reading file");
+                e.printStackTrace();
+            }
+            return true;
+        }
         return false;
     }
 

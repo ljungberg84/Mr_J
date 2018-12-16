@@ -2,11 +2,20 @@ package model;
 
 public class UserAccount {
 
-    private String userName = "";
-    private String password = "";
+    private String userName;
+    private String password;
+
+    public UserAccount(){
+        this("", "");
+    }
+
+    public UserAccount(String userName, String password){
+        this.setUserName(userName);
+        this.setPassword(password);
+    }
 
     public boolean hasLogin(){
-        System.out.println("has login");
+        //System.out.println("has login");
         return (!userName.isEmpty() && !password.isEmpty());
     }
 
@@ -15,7 +24,9 @@ public class UserAccount {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        if (userName != null){
+            this.userName = userName;
+        }
     }
 
     public String getPassword() {
@@ -23,6 +34,9 @@ public class UserAccount {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null){
+            this.password = password;
+
+        }
     }
 }

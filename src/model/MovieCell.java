@@ -51,22 +51,25 @@ public class MovieCell extends ListCell<MovieInfo> {
         imageView.setPreserveRatio(true);
         VBox.setVgrow(imageView, Priority.ALWAYS);
 
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("button clicked");
-            }
-        });
+//        button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                System.out.println("button clicked");
+//            }
+//        });
     }
 
     @Override
     protected void updateItem(MovieInfo item, boolean empty) {
-        System.out.println(Program.getHits().size());
+        System.out.println("updateItem");
+        //System.out.println(Program.getHits().size());
         super.updateItem(item, empty);
         if(empty || item == null){
             //titleLabel.setText("ingen hittades");
             //setText("test");
+            System.out.println("empty");
         }else{
+            System.out.println("match");
             String imgURl = item.getImagePath();
             if(imgURl == null || imgURl.substring(imgURl.length() - 4, imgURl.length()).equalsIgnoreCase("webp")){
                 imageView.setImage(new Image("file:resources//imagenotavailable.png"));
@@ -79,9 +82,9 @@ public class MovieCell extends ListCell<MovieInfo> {
             sourceImageView.setImage(new Image("file:resources//" + item.getSource()));
 
             setGraphic(vbox);
-            System.out.println(item.getUrl());
-            System.out.println(item.getSource());
-            System.out.println("test " + item.getTitle());
+//            System.out.println(item.getUrl());
+//            System.out.println(item.getSource());
+//            System.out.println("test " + item.getTitle());
         }
 
         //do something to check if working image

@@ -1,5 +1,7 @@
 package parsers;
 
+import model.MyCookieHandler;
+import model.UserAccount;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -12,45 +14,29 @@ import java.util.List;
 public class NetflixService extends ServiceHandler {
 
     public NetflixService() {
-        super("netflix_cookies", "hannahannahanna@hotmail.com", "Angus100Norpan200");
+        super(new MyCookieHandler("netflix_cookies"), new UserAccount("hannahannahanna@hotmail.com", "Angus100Norpan200"));
     }
 
     @Override
     public MovieInfo search(String movieTitle) {
-        //if (cookieHandler.hasExpired()) {
-        if(true){
+        browser = new ChromeDriver(options);
+        //super.search(movieTitle);
+        if (hasCookies()) { // implement this code (isValid())when possible
             System.out.println("Netflix cookieFile exists");
             cookieHandler.loadCookies(browser);
             System.out.println("Loading cookies");
-        }
-        else {
-            System.out.println("Netflix cookieFile not found");
+        } else {
+            System.out.println("Netflix cookies not found");
         }
         browser.get("https://www.netflix.com/search"); //rootUrl
-        try{
-//            WebElement emailField = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_userLoginId")));
-//            WebElement passwordField = new WebDriverWait(browser, 10).
-//                    until(ExpectedConditions.presenceOfElementLocated(By.id("id_password")));
-//
-//            emailField.sendKeys(userName);
-//            passwordField.sendKeys(password);
-//
-//            List<WebElement> buttonList = browser.findElementsByTagName("Button");
-//            WebElement loginButton = buttonList.get(1);
-//            loginButton.click();
-//
-            try{
+        try {
+            try {
                 WebElement userButton = new WebDriverWait(browser, 10).
                         until(ExpectedConditions.presenceOfElementLocated(By.className("profile-icon")));
                 userButton.click();
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
-
-
-            //example: move to movie url efter cookies
-            //browser.get("https://www.netflix.com/watch/80021955?tctx=0%2C0%2C%2C%2C");
 
             WebElement searchTab = new WebDriverWait(browser, 10).
                     until(ExpectedConditions.presenceOfElementLocated(By.className("searchTab")));
@@ -60,67 +46,47 @@ public class NetflixService extends ServiceHandler {
                     until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@data-uia='search-box-input']")));
             itemSearchField.sendKeys(movieTitle);
 
+
+            //get movie element with all info
             WebElement movieNode = new WebDriverWait(browser, 3).until(ExpectedConditions.
-                        presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
-                        " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
+                    presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
+                            " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
+
 
             String title = movieNode.getAttribute("aria-label");
             String url = movieNode.getAttribute("href");
-//            System.out.println("--------------------------");
-//            System.out.println(movieTitle + " was found on Netflix");
-//            System.out.println("Url: " + url);
-//            System.out.println("--------------------------");
-            //browser.close();
+
+            //narrowing the element to get image url
             movieNode = movieNode.findElement(By.xpath("//img[@class='boxart-image boxart-image-in-padded-container']"));
+            //get image url from the remaining movie element
             String imgUrl = movieNode.getAttribute("src");
-            return new MovieInfo(title, url,imgUrl, "Netflix.png");
+            return new MovieInfo(title, url, imgUrl, "Netflix.png");
 
-        }catch(TimeoutException e){
-            //System.out.println(movieTitle + " was not found on Netflix");
-            //e.printStackTrace();
+        } catch (TimeoutException e) {
+            System.out.println(movieTitle + " was not found on Netflix");
 
-        }catch(Exception e){
-            //System.out.println("netflix waiting for login fields failed");
-            //System.out.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             browser.close();
         }
-        return  null;
+        return null;
     }
 
-
-
-
-//    if(service.getAccount().getUserName() != null && service.getAccount().getPassword() != null) {
-//                //System.out.println("Username and password found");
-//
-//                if (service.getCookieHandler().hasExpired()) {
-//                    System.out.println("Logging in");
-//                    Thread thread = new Thread(service::login);
-//                    thread.start();
-//                }
-//            } else {
-//                System.out.println("No username found");
-//            }
-
-
-
-
     @Override
-    public void login() {
-        if(account.hasLogin()){
-           // System.out.println("login for netflix found");
-            if (cookieHandler.hasExpired()){
-                System.out.println("expired cookies");
-            }else{
-                System.out.println("cookies available, cancelling login");
-                return;
-            }
-        }else{
-            System.out.println("cant log in without account");
-            return;
-        }
+    public void login () {
+//        if(account.hasLogin()){
+//           // System.out.println("login for netflix found");
+//            if (cookieHandler.isValid()){
+//                System.out.println("expired cookies");
+//            }else{
+//                System.out.println("cookies available, cancelling login");
+//                return;
+//            }
+//        }else{
+//            System.out.println("cant log in without account");
+//            return;
+//        }
 
         System.out.println("Starting netflix login");
         browser = new ChromeDriver(options);
@@ -145,10 +111,11 @@ public class NetflixService extends ServiceHandler {
 
             cookieHandler.saveCookies(browser);
             System.out.println("netflix logged in");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             //browser.close();
         }
     }
+
 }
