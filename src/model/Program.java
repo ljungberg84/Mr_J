@@ -1,65 +1,88 @@
 package model;
 
+import fx.Controller;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import parsers.MovieInfo;
-import parsers.Parsable;
+import parsers.ServiceHandler;
 
 import java.util.*;
 
 public class Program {
 
-    Scanner sc = new Scanner(System.in);
+    private Map<String, Service> services;
+    private ObservableList<MovieInfo> hits;
 
-    //List<Parsable> services;
-    private Map<String, Parsable> services;
-    private static List<MovieInfo> hits;
-
-    public Program() {
-        //this.services = new ArrayList<Parsable>();
-        this.services = new HashMap<>();
-        hits = new ArrayList<>();
+    public ObservableList<MovieInfo> getHits() {
+        return hits;
     }
 
-    public void start(){
-        int hitCount;
-        while(true){
-            hits.clear();
-            hitCount = 0;
-            System.out.println("Enter movie title to search for:");
-            String movieTitle = sc.nextLine();
-            if (movieTitle.equalsIgnoreCase("quit"))
-                System.exit(0);
-            for (Parsable service : services.values()) {
-                service.parse(movieTitle);
-            }
-            //main thread sleeps to make sure results populate list before printout
-            //here we could use listener on 'List<MovieInfo>hits' to update javafx element without having to use sleep
-            try {
-                Thread.sleep(10000);
-            }catch(InterruptedException e){
-
-            }
-            for (MovieInfo movie: hits) {
-                if(movie != null){
-                    System.out.println(movie.getTitle() +" : " + movie.getUrl() + " : " + movie.getSource());
-                    hitCount ++;
-                }
-            }
-            if (hitCount == 0){
-                System.out.println("Sorry, " + movieTitle + " was not found on any streaming platform");
-            }
+    public synchronized void addHits(MovieInfo hit){
+        if(hit != null){
+            this.hits.add(hit);
         }
     }
 
-    public void addService(String name, Parsable service){
+    public Program() {
+        services = new HashMap<>();
+        hits = FXCollections.observableArrayList();
+    }
+
+    public void startLogin(){
+        System.out.println("startLogin()");
+        for (Service service : services.values()) {
+            if(service.hasLogin()){
+                System.out.println("login found");
+                if(service.hasCookies()){
+                    System.out.println("cookies found");
+
+                }
+                else{
+                    System.out.println("no cookies but login");
+                    Thread thread = new Thread(service::login);
+                    thread.start();
+                }
+            }else{
+                System.out.println("no login or cookies, cant log in");
+            }
+        }
+    }
+    public void startSearch(String searchFrase){
+
+        System.out.println("Starting search");
+
+        for (Service service : services.values()) {
+            System.out.println("Starting thread");
+            Task task = new Task<MovieInfo>() {
+                @Override
+                protected MovieInfo call() throws Exception {
+                    return service.search(searchFrase);
+                }
+            };
+            task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                    addHits(((Task<MovieInfo>) task).getValue());
+                    System.out.println(hits.size());
+                }
+            });
+            Thread thread = new Thread(task);
+            thread.setDaemon(true);
+            thread.start();
+        }
+    }
+
+    public void addService(String name, ServiceHandler service){
         if(service != null && name != null){
-            //services.add(service);
             services.put(name, service);
         }
     }
 
-    public static void addHit(MovieInfo movieInfo){
-        synchronized (hits){
-            hits.add(movieInfo);
-        }
+    public Map<String, Service> getServices() {
+        return services;
     }
 }

@@ -34,4 +34,12 @@ public class MovieInfo {
     public String getSource() {
         return source;
     }
+
+    @Override
+    public String toString() {
+        return title + "\n" +
+                source + "\n" +
+                url + "\n" +
+                imagePath;
+    }
 }

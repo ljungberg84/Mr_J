@@ -4,19 +4,24 @@ import parsers.*;
 public class Main2 {
 
     public static void main(String[] args) {
-        ServiceParser hboParser = new HboParser();
-        ServiceParser netflixParser = new NetflixParser();
-        ServiceParser viaplayParser = new ViaplayParser();
-        ServiceParser showtime = new ShowtimeParser();
-        ServiceParser svtplayParser = new SVTPlayParser();
+        //ServiceHandler hboParser = new HboParser();
+        //ServiceHandler netflixParser = new NetflixService();
+        //ServiceHandler viaplayParser = new ViaplayParser();
+        //ServiceHandler showtime = new ShowtimeParser();
+        //ServiceHandler svtplayParser = new SvtService();
 
-        Program program = new Program();
+        //Program program = new Program();
 
-        program.addService("HBO Nordic", hboParser);
-        program.addService("Netflix", netflixParser);
-        program.addService("Viaplay", viaplayParser);
+        //program.addService("HBO Nordic", hboParser);
+        //program.addService("Netflix", netflixParser);
+        //program.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
-        program.addService("SVT Play", svtplayParser);
-        program.start();
+        //program.addService("SVT Play", svtplayParser);
+        //program.startSearch("better call saul");
+
+        //Login login = new Login("https://www.netflix.com/se/login");
+        //login.parse("");
+        //NetflixHandler netflix = new NetflixHandler();
+        //netflix.parse("milk");
     }
 }
