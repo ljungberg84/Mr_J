@@ -11,4 +11,6 @@ public interface Service {
      Boolean hasLogin();
 
      Boolean hasCookies();
+
+     void playMovie(MovieInfo movie);
 }

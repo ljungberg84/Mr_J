@@ -16,21 +16,19 @@ public class Program {
     Scanner sc = new Scanner(System.in);
 
     //List<Parsable> services;
-    private static Map<String, Service> services;
-    private static  ObservableList<MovieInfo> hits;
+    private Map<String, Service> services;
+    private ObservableList<MovieInfo> hits;
 
-    public static ObservableList<MovieInfo> getHits() {
+    public ObservableList<MovieInfo> getHits() {
         return hits;
     }
 
-    public synchronized static void addHits(MovieInfo hit){
+    public synchronized void addHits(MovieInfo hit){
         //Platform.runLater(()->hits.add(hit));
         if(hit != null){
             System.out.println("lägger till film");
-            hits.add(hit);
+            this.hits.add(hit);
         }
-
-
     }
 
 
@@ -56,7 +54,7 @@ public class Program {
                     thread.start();
                 }
             }else{
-                System.out.println("no login or cookies, cant log in to netflix");
+                System.out.println("no login or cookies, cant log in");
             }
         }
 
@@ -94,6 +92,7 @@ public class Program {
                 public void handle(WorkerStateEvent event) {
                    //hits.add((MovieInfo) task.getValue());
                     addHits(((Task<MovieInfo>) task).getValue());
+                    System.out.println(hits.size());
                 }
             });
             Thread thread = new Thread(task);
@@ -111,9 +110,11 @@ public class Program {
         }
     }
 
+    public Map<String, Service> getServices() {
+        return services;
+    }
 
-
-//    public static void addHit(MovieInfo movieInfo){
+    //    public static void addHit(MovieInfo movieInfo){
 //        synchronized (hits){
 //            Platform.runLater(()->hits.add(movieInfo));
 //            //hits.add(movieInfo);

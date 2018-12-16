@@ -1,5 +1,7 @@
 package fx;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -31,24 +33,32 @@ public class Controller {
 
 
     public void initialize(){
-        //ServiceHandler hboParser = new HboService();
+        ServiceHandler hboParser = new HboService();
         ServiceHandler netflixParser = new NetflixService();
-        //ServiceHandler viaplayParser = new ViaplayService();
+        ServiceHandler viaplayParser = new ViaplayService();
         //ServiceHandler showtime = new ShowtimeParser();
         //ServiceHandler svtParser = new SVTPlayHandler();
 
-        //p.addService("hbo", hboParser);
-        p.addService("netflix", netflixParser);
+        p.addService("Hbo", hboParser);
+        p.addService("Netflix", netflixParser);
         //p.addService("Svt play", svtParser);
-        //p.addService("viaplay", viaplayParser);
+        p.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
-        listView.setItems(Program.getHits());
+        listView.setItems(p.getHits());
         listView.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
             @Override
             public ListCell call(ListView param) {
                return new MovieCell();
-
+            }
+        });
+        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MovieInfo>() {
+            @Override
+            public void changed(ObservableValue<? extends MovieInfo> observable, MovieInfo oldValue, MovieInfo newValue) {
+                System.out.println("listview select imtem listener: " + newValue.getUrl() + newValue.toString());
+                String service = newValue.getSource().substring(0, newValue.getSource().length() - 4);
+                System.out.println("service key: " + service);
+                p.getServices().get(service).playMovie(newValue);
             }
         });
         p.startLogin();
@@ -77,16 +87,17 @@ public class Controller {
     @FXML
     public void search(){
         System.out.println("deleting hits");
-        Program.getHits().clear();
-        System.out.println("hits count: " + Program.getHits().size());
+        p.getHits().clear();
+        System.out.println("hits count: " + p.getHits().size());
         //Thread searchThread = new Thread(()->p.startSearch(searchField.getText()));
         //searchThread.start();
         p.startSearch(searchField.getText());
     }
 
-    public void goToPlayMovie(MovieInfo movie){
-        //go to movie url
-    }
+//    public void goToPlayMovie(MovieInfo movie){
+//        String service = movie.getSource().substring(0, movie.getSource().length() - 3);
+//        p.getServices().get(service)
+//    }
 
 
 

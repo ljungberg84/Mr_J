@@ -27,6 +27,16 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
 //        //return search(title);
 //    }
 
+
+    public void playMovie(MovieInfo movie){
+        browser = new ChromeDriver(options.setHeadless(false));
+        if (hasCookies()){
+            cookieHandler.loadCookies(browser);
+        }
+        browser.get(movie.getUrl());
+
+    }
+
     @Override
     public Boolean hasLogin(){
         return (account != null && account.hasLogin());
@@ -36,7 +46,6 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
     public Boolean hasCookies() {
         return (cookieHandler != null && cookieHandler.isValid());
     }
-
 
 //    @Override
 //    public void login(){

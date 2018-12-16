@@ -13,7 +13,7 @@ public class WebDriverHandler {
     public WebDriverHandler() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         //set preferences to not load images and to use disk cache
         HashMap<String, Object> prefs = new HashMap<String, Object>();
