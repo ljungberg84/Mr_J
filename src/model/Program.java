@@ -37,9 +37,8 @@ public class Program {
         for (Service service : services.values()) {
             if(service.hasLogin()){
                 System.out.println("login found");
-                if(service.hasCookies()){
+                if(true){//service.hasCookies()){
                     System.out.println("cookies found ");
-
                 }
                 else{
                     System.out.println("no cookies but login");

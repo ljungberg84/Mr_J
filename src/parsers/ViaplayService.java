@@ -74,7 +74,8 @@ public class ViaplayService extends ServiceHandler{
         browser.get("https://viaplay.se/#search=");
         try{
             WebElement logInButton1 = new WebDriverWait(browser,2).
-                    until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));
+//                    until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));
+                        until(ExpectedConditions.elementToBeClickable(By.className("LoginHeader-menu-3DV_r")));
             logInButton1.click();
 
             WebElement emailField = new WebDriverWait(browser, 2).

@@ -14,7 +14,7 @@ import java.util.List;
 public class NetflixService extends ServiceHandler {
 
     public NetflixService() {
-        super(new MyCookieHandler("netflix_cookies"), new UserAccount("", ""));
+        super(new MyCookieHandler("netflix_cookies"), new UserAccount("hannahannahanna@hotmail.com", "Angus100Norpan200"));
     }
 
     @Override
