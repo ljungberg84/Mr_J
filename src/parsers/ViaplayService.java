@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ViaplayService extends ServiceHandler{
 
     public ViaplayService() {
-        super(new MyCookieHandler("Viaplay_cookies"), new UserAccount());
+        super(new MyCookieHandler("viaplay_cookies"), new UserAccount("bkay_gbg@hotmail.com","Pierdole86"));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ViaplayService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            browser.close();
+            //browser.close();
         }
     }
 }

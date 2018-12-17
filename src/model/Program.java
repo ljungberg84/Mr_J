@@ -38,7 +38,7 @@ public class Program {
             if(service.hasLogin()){
                 System.out.println("login found");
                 if(service.hasCookies()){
-                    System.out.println("cookies found");
+                    System.out.println("cookies found ");
 
                 }
                 else{
@@ -73,6 +73,7 @@ public class Program {
             Thread thread = new Thread(task);
             thread.setDaemon(true);
             thread.start();
+            //Platform.runLater(()-> Controller.getSearchButton().setDisable(false));
         }
     }
 

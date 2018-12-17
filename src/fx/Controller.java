@@ -41,9 +41,9 @@ public class Controller {
         //ServiceHandler svtParser = new SvtService();
 
         p.addService("Hbo", hboParser);
-        p.addService("Netflix", netflixParser);
+        //p.addService("Netflix", netflixParser);
         //p.addService("Svt play", svtParser);
-        p.addService("Viaplay", viaplayParser);
+        //p.addService("Viaplay", viaplayParser);
         //program.addService(showtime);
         //program.startSearch();
         listView.setItems(p.getHits());
@@ -67,16 +67,12 @@ public class Controller {
 
     @FXML
     public void search(){
-        searchButton.setDisable(true);
+        //searchButton.setDisable(true);
         p.startSearch(searchField.getText());
     }
 
     @FXML
     private void printText() {
         System.out.println(searchField.getText());
-    }
-
-    public Button getSearchButton() {
-        return searchButton;
     }
 }

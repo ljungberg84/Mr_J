@@ -13,12 +13,12 @@ public class WebDriverHandler {
     public WebDriverHandler() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         this.options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
 
         //set preferences to not load images and to use disk cache
         HashMap<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("profile.managed_default_content_settings.images", 2);
         prefs.put("disk-cache-size", 4096);
-        options.setExperimentalOption("prefs", prefs);
+        //options.setExperimentalOption("prefs", prefs);
     }
 }
