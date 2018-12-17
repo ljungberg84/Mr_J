@@ -37,9 +37,8 @@ public class Program {
         for (Service service : services.values()) {
             if(service.hasLogin()){
                 System.out.println("login found");
-                if(service.hasCookies()){
-                    System.out.println("cookies found");
-
+                if(true){//service.hasCookies()){
+                    System.out.println("cookies found ");
                 }
                 else{
                     System.out.println("no cookies but login");
@@ -73,6 +72,7 @@ public class Program {
             Thread thread = new Thread(task);
             thread.setDaemon(true);
             thread.start();
+            //Platform.runLater(()-> Controller.getSearchButton().setDisable(false));
         }
     }
 

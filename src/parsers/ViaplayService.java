@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ViaplayService extends ServiceHandler{
 
     public ViaplayService() {
-        super(new MyCookieHandler("Viaplay_cookies"), new UserAccount());
+        super(new MyCookieHandler("viaplay_cookies"), new UserAccount("",""));
     }
 
     @Override
@@ -37,6 +37,13 @@ public class ViaplayService extends ServiceHandler{
             if (url.substring(7, 18).equalsIgnoreCase("kundservice"))
                 throw new TimeoutException();
 
+            movieNode = movieNode.findElement(By.xpath("//div[contains(@class, \"front-image Item-image\")]"));
+
+            String imgUrl = movieNode.getAttribute("style");
+            imgUrl = imgUrl.substring(imgUrl.indexOf("(") + 2, imgUrl.indexOf("?"));
+
+            //System.out.println("imgUrl: " + imgUrl);
+
             System.out.println(url);
 //            System.out.println(url.length());
 //            System.out.println("--------------------------");
@@ -44,7 +51,7 @@ public class ViaplayService extends ServiceHandler{
 //            System.out.println("Url: " + url);
 ////            System.out.println("--------------------------");
 //
-            return new MovieInfo(movieTitle, url, "Viaplay.jpg");
+            return new MovieInfo(movieTitle, url, imgUrl, "Viaplay.jpg");
 
         } catch (TimeoutException e) {
             System.out.println(movieTitle + " was not found on Viaplay");
@@ -55,7 +62,7 @@ public class ViaplayService extends ServiceHandler{
             System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
-            browser.close();
+            //browser.close();
         }
         return null;
     }
@@ -67,7 +74,8 @@ public class ViaplayService extends ServiceHandler{
         browser.get("https://viaplay.se/#search=");
         try{
             WebElement logInButton1 = new WebDriverWait(browser,2).
-                    until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));
+//                    until(ExpectedConditions.presenceOfElementLocated(By.className("LoginHeader-menu-3DV_r")));
+                        until(ExpectedConditions.elementToBeClickable(By.className("LoginHeader-menu-3DV_r")));
             logInButton1.click();
 
             WebElement emailField = new WebDriverWait(browser, 2).
@@ -88,7 +96,7 @@ public class ViaplayService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            browser.close();
+            //browser.close();
         }
     }
 }

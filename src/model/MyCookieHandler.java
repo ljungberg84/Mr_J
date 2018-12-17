@@ -69,6 +69,7 @@ public class MyCookieHandler {
                     try {
                         Date d = f.parse(value);
                         if(d.before(new Date())){
+                            System.out.println("cookie expired!");
                             return false;
                         }
                     } catch (ParseException e) {

@@ -22,11 +22,13 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
     public void playMovie(MovieInfo movie){
         ChromeOptions playOptions = new ChromeOptions().setHeadless(false).addArguments("start-maximized");
         browser = new ChromeDriver(playOptions);
-        if (hasCookies()){
+        //if (hasCookies()){
+        //    cookieHandler.loadCookies(browser);
+        //}
+        if(account != null){
             cookieHandler.loadCookies(browser);
         }
         browser.get(movie.getUrl());
-
     }
 
     @Override
