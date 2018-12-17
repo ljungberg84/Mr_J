@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class HboService extends ServiceHandler{
 
     public HboService() {
-        super(new MyCookieHandler("hbo_cookies"), new UserAccount("susannabellak@hotmail.com","Sus11bel"));
+        super(new MyCookieHandler("hbo_cookies"), new UserAccount("",""));
     }
 
     @Override
