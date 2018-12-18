@@ -9,7 +9,7 @@ public class UserAccountTest {
 
     @Test
     public void hasLogin() {
-        assertTrue(true);
+        assertTrue(account.hasLogin());
     }
 
     @Test
