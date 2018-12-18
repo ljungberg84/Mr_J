@@ -17,6 +17,7 @@ public class ProgramTest {
 
     @Test
     void servicesShouldContainObject(){
+
         ServiceHandler hboParser = new HboService();
         p.addService("hbo", hboParser);
 
@@ -25,11 +26,24 @@ public class ProgramTest {
 
     @Test
     void doesNotLoginWithoutCookies(){
-        ServiceHandler hboParser = new HboService();
-        p.addService("hbo", hboParser);
+        quickInitialize();
 
         p.startLogin();
+        //should produce output: "startLogin" and "no login or cookies, cant log in"
+    }
 
+    @Test
+    void startsSearchingAndCreatesThread(){
+        quickInitialize();
+
+        p.startSearch("bla");
+        //should produce output: "Starting search" and "Starting thread"
+    }
+
+    public void quickInitialize() //helper method to initialize a service to use in tests
+    {
+        ServiceHandler hboParser = new HboService();
+        p.addService("hbo", hboParser);
     }
 
 }
