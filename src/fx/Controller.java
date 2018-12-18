@@ -142,6 +142,7 @@ public class Controller {
     private void saveAccount(Service service, String username, String password) {
         service.getAccount().setUserName(username);
         service.getAccount().setPassword(password);
+        System.out.println(service + " login details saved.");
 
     }
 
