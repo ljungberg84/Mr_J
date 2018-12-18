@@ -1,9 +1,12 @@
 package Test;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import parsers.HboService;
 import parsers.MovieInfo;
 
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.*;
 
 public class HboServiceTest {
@@ -17,13 +20,19 @@ public class HboServiceTest {
         HboService hbo = new HboService();
         MovieInfo object = hbo.search("vikings");
 
-        assertEquals("Returns wrong source", object.getSource(), vikings.getSource());
-        assertEquals("Returns wrong title", object.getTitle(), vikings.getTitle());
-        assertEquals("Wrong url", object.getUrl(), vikings.getUrl());
-        assertEquals("Wrong image path", object.getImagePath(), vikings.getImagePath());
+        assertThat(object, hasProperty("title", equalToIgnoringCase(vikings.getTitle())));
+        assertThat(object, Matchers.hasProperty("url", equalToIgnoringCase(vikings.getUrl())));
+        assertThat(object, hasProperty("imagePath", equalToIgnoringCase(vikings.getImagePath())));
+        assertThat(object, hasProperty("source", equalToIgnoringCase(vikings.getSource())));
+
+//        assertEquals("Returns wrong source", object.getSource(), vikings.getSource());
+//        //assertEquals("Returns wrong title", object.getTitle(), vikings.getTitle());
+//        assertEquals("Wrong url", object.getUrl(), vikings.getUrl());
+//        assertEquals("Wrong image path", object.getImagePath(), vikings.getImagePath());
     }
 
     @Test
     public void login() {
+
     }
 }
