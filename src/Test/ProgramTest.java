@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import parsers.HboService;
 import parsers.ServiceHandler;
 
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -32,11 +31,21 @@ public class ProgramTest {
         //should produce output: "startLogin" and "no login or cookies, cant log in"
     }
 
+
     @Test
-    void startsSearchingAndCreatesThread(){
+    void doesNotSearchWhenInputIsNull(){
+
+        p.startSearch(null);
+        p.startSearch("");
+        //should produce output: Error Invalid input
+
+    }
+
+    @Test
+    void startsSearchingAndNewThread(){
         quickInitialize();
 
-        p.startSearch("bla");
+        p.startSearch("sgdfgs");
         //should produce output: "Starting search" and "Starting thread"
     }
 
