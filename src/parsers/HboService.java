@@ -104,4 +104,9 @@ public class HboService extends ServiceHandler{
             //browser.close();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Hbo";
+    }
 }
