@@ -88,4 +88,8 @@ public class Controller {
     private void printText() {
         System.out.println(searchField.getText());
     }
+
+    public void setStage(){
+      
+    }
 }
