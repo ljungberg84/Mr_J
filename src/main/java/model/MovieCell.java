@@ -56,13 +56,13 @@ public class MovieCell extends ListCell<MovieInfo> {
             //System.out.println("match");
             String imgURl = item.getImagePath();
             if(imgURl == null || imgURl.substring(imgURl.length() - 4, imgURl.length()).equalsIgnoreCase("webp")){
-                imageView.setImage(new Image("file:resources//imagenotavailable.png"));
+                imageView.setImage(new Image("file:src//main//resources//imagenotavailable.png"));
             }else{
                 imageView.setImage(new Image(item.getImagePath()));
             }
             titleLabel.setText(item.getTitle());
             infoLabel.setText("Found on:");
-            sourceImageView.setImage(new Image("file:resources//" + item.getSource()));
+            sourceImageView.setImage(new Image("file:src//main//resources//" + item.getSource()));
 
             setGraphic(vbox);
 
