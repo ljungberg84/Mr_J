@@ -14,7 +14,7 @@ import java.util.*;
 
 public class Program {
 
-    private Map<String, Service> services;
+    public Map<String, Service> services;
     private ObservableList<MovieInfo> hits;
 
     public ObservableList<MovieInfo> getHits() {
@@ -52,6 +52,9 @@ public class Program {
     }
     public void startSearch(String searchFrase){
 
+        if (searchFrase==null || searchFrase.equals("")) {
+            System.out.println("Error: invalid input");
+            } else {
         System.out.println("Starting search");
 
         for (Service service : services.values()) {
@@ -73,6 +76,7 @@ public class Program {
             thread.setDaemon(true);
             thread.start();
             //Platform.runLater(()-> Controller.getSearchButton().setDisable(false));
+            }
         }
     }
 

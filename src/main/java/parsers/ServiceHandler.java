@@ -49,6 +49,11 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
         return cookieHandler;
     }
 
+    public void setAccount(UserAccount account){
+        this.account = account;
+
+    }
+
     //TODO continue with viaplay, return image and stuff
     //TODO login on startSearch, if cookies out of date: login and gather new ones, else: use cookies to login before search
     //TODO when clicking button for hits on streamingservice; use cookies to login
