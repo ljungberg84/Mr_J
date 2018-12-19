@@ -20,6 +20,13 @@ public class ViaplayServiceTest {
 
     public static void main(String[] args) {
 
+        //This testing test methods from ServiceHandler class witch is abstract therefore
+        //testing is made from ViaplayServiceTest and ViaplayService is tested from here as well.
+        //Methods from ServiceHandler that are tested here include playMovie, hasLogin, hasCookies, getCookies,
+        //and setCookies.
+
+
+
         Scanner sc = new Scanner(System.in);
 
         String userName;
