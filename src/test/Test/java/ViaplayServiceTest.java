@@ -1,4 +1,4 @@
-package Test;
+package Test.java;
 
 import model.Service;
 import model.UserAccount;
