@@ -1,6 +1,7 @@
 package model;
 
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -23,26 +24,30 @@ public class MyCookieHandler {
     }
 
     public void saveCookies(ChromeDriver browser){
-        try{
-            cookieFile.delete();
-            cookieFile.createNewFile();
-            FileWriter fileWriter = new FileWriter(fileName);
-            BufferedWriter bWrite = new BufferedWriter(fileWriter);
+        if (browser != null){
+            try{
+                cookieFile.delete();
+                cookieFile.createNewFile();
+                FileWriter fileWriter = new FileWriter(fileName);
+                BufferedWriter bWrite = new BufferedWriter(fileWriter);
 
-            for (Cookie ck : browser.manage().getCookies()) {
-                bWrite.write((ck.getName()+";"+ck.getValue()+";"+ck.getDomain()+
-                        ";"+ck.getPath()+";"+ck.getExpiry()+";"+ck.isSecure()));
+                for (Cookie ck : browser.manage().getCookies()) {
+                    bWrite.write((ck.getName()+";"+ck.getValue()+";"+ck.getDomain()+
+                            ";"+ck.getPath()+";"+ck.getExpiry()+";"+ck.isSecure()));
 
-                bWrite.newLine();
+                    bWrite.newLine();
+                }
+
+                bWrite.close();
+                fileWriter.close();
+
+            } catch(Exception e){
+                e.printStackTrace();
+            }finally {
+                browser.close();
             }
-
-            bWrite.close();
-            fileWriter.close();
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }finally {
-            browser.close();
+        }else{
+            throw new InvalidArgumentException("argument must be valid driver");
         }
     }
 
@@ -85,50 +90,53 @@ public class MyCookieHandler {
         return false;
     }
 
-    public void loadCookies(ChromeDriver browser) {
+    public boolean loadCookies(ChromeDriver browser) {
 
         browser.get("https://google.com");
         try{
+            if(cookieFile.exists()){
+                FileReader fileReader = new FileReader(fileName);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                String strLine;
+                while((strLine=bufferedReader.readLine()) != null){
+                    StringTokenizer token = new StringTokenizer(strLine, ";");
 
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String strLine;
-            while((strLine=bufferedReader.readLine()) != null){
-                StringTokenizer token = new StringTokenizer(strLine, ";");
-
-                while(token.hasMoreTokens()){
-                    String name = token.nextToken();
-                    String value = token.nextToken();
-                    String domain = token.nextToken();
-                    String path = token.nextToken();
-                    Date expiry = null;
+                    while(token.hasMoreTokens()){
+                        String name = token.nextToken();
+                        String value = token.nextToken();
+                        String domain = token.nextToken();
+                        String path = token.nextToken();
+                        Date expiry = null;
 
 
-                    String val;
-                    if(!(val = token.nextToken()).equals("null")){
+                        String val;
+                        if(!(val = token.nextToken()).equals("null")){
 
-                        //"EEE MMM dd HH:mm:ss zzz yyyy"
+                            //"EEE MMM dd HH:mm:ss zzz yyyy"
 
-                        SimpleDateFormat f = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.UK);
-                        try {
-                            Date d = f.parse(val);
-                            long milliseconds = d.getTime();
-                            expiry = new Date(milliseconds);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            SimpleDateFormat f = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.UK);
+                            try {
+                                Date d = f.parse(val);
+                                long milliseconds = d.getTime();
+                                expiry = new Date(milliseconds);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                    Boolean isSecure = Boolean.parseBoolean(token.nextToken());
-                    Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
+                        Boolean isSecure = Boolean.parseBoolean(token.nextToken());
+                        Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
 
-                    browser.manage().addCookie(ck);
+                        browser.manage().addCookie(ck);
+                    }
                 }
+            }else{
+                return false;
             }
 
         }catch (Exception e){
             e.printStackTrace();
         }
+        return true;
     }
 
     public File getCookieFile() {

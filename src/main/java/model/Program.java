@@ -1,5 +1,7 @@
 package model;
 
+import fx.Controller;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -31,7 +33,15 @@ public class Program {
                 else{
                     login = true;
                     System.out.println("no cookies but login");
-                    Thread thread = new Thread(service::login);
+                    Task task = new Task() {
+                        @Override
+                        protected Object call() throws Exception {
+                            service.login();
+                            return null;
+                        }
+                    };
+                    Thread thread = new Thread(task);
+                    thread.setDaemon(true);
                     thread.start();
                 }
             }else{
@@ -42,12 +52,13 @@ public class Program {
     }
 
 
-    public void startSearch(String searchFrase){
+    public boolean startSearch(String searchFrase){
+        boolean searching = true;
 
         if (searchFrase==null || searchFrase.equals("")) {
             System.out.println("Error: invalid input");
-            } else {
-        System.out.println("test");
+            searching = false;
+        } else {
 
         for (Service service : services.values()) {
             System.out.println("Starting thread");
@@ -69,6 +80,7 @@ public class Program {
             thread.start();
             }
         }
+        return searching;
     }
 
     public void addService(String name, Service service){

@@ -22,11 +22,10 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
     public void playMovie(MovieInfo movie){
         ChromeOptions playOptions = new ChromeOptions().setHeadless(false).addArguments("start-maximized");
         browser = new ChromeDriver(playOptions);
-        //if (hasCookies()){
-        //    cookieHandler.loadCookies(browser);
-        //}
         if(account != null){
-            cookieHandler.loadCookies(browser);
+            if(hasCookies()){
+                cookieHandler.loadCookies(browser);
+            }
         }
         browser.get(movie.getUrl());
     }
@@ -54,7 +53,7 @@ public abstract class ServiceHandler extends WebDriverHandler implements Service
 
     }
 
-    //TODO continue with viaplay, return image and stuff
+    //TODO continue with viaplay, return image
     //TODO login on startSearch, if cookies out of date: login and gather new ones, else: use cookies to login before search
     //TODO when clicking button for hits on streamingservice; use cookies to login
     //TODO move login part of scripts to proper place and let parser scripts only handle search

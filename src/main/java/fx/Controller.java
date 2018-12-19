@@ -65,12 +65,12 @@ public class Controller {
         //program.startSearch();
         listView.setItems(p.getHits());
         //-------------------------------------------
-        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
-            @Override
-            public void onChanged(Change<? extends MovieInfo> c) {
-                listView.refresh();
-            }
-        });
+//        p.getHits().addListener(new ListChangeListener<MovieInfo>() {
+//            @Override
+//            public void onChanged(Change<? extends MovieInfo> c) {
+//                listView.refresh();
+//            }
+//        });
         //-------------------------------------------
         listView.setCellFactory(new Callback<ListView<MovieInfo>, ListCell<MovieInfo>>() {
             @Override
@@ -92,19 +92,13 @@ public class Controller {
 
     @FXML
     public void search(){
-        //p.getHits().clear();
-        //searchButton.setDisable(true);
-        p.startSearch(searchField.getText());
         p.getHits().clear();
+        p.startSearch(searchField.getText());
+        //p.getHits().clear();
     }
 
     @FXML
-    private void printText() {
-        System.out.println(searchField.getText());
-    }
-
-    @FXML
-    public void accountButtonHandler(ActionEvent actionEvent) {
+    private void accountButtonHandler(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(Netflix)) {
             popup(p.getServices().get("Netflix"));
         } else if(actionEvent.getSource().equals(HBO)) {
@@ -112,10 +106,9 @@ public class Controller {
         } else if(actionEvent.getSource().equals(Viaplay)) {
             popup(p.getServices().get("Viaplay"));
         }
-
     }
 
-    public void popup(Service service){
+    private void popup(Service service){
         Stage popupWindow=new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle(service.toString());

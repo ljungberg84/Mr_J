@@ -35,23 +35,15 @@ public class HboService extends ServiceHandler{
                     " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']"));
 
 
-
             String title = movieNode.getAttribute("aria-label");
             String imgUrl = movieNode.getAttribute("style");
 
-
-            //System.out.println("title: " + title);
-            //System.out.println(imgUrl);
             try{
                 imgUrl = imgUrl.substring(imgUrl.indexOf("(") + 2, imgUrl.indexOf(")") - 1);
             }catch (Exception e){
-                System.out.println("fel vid bildhämtning");
+                //System.out.println("fel vid bildhämtning");
                 imgUrl = null;
             }
-            //System.out.println("imgurl: " + imgUrl);
-            //System.out.println("url: " + url);
-
-
 
             return new MovieInfo(movieNode.getAttribute("aria-label"), url, imgUrl, "Hbo.jpg");
 
@@ -101,7 +93,7 @@ public class HboService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            //browser.close();
+            browser.close();
         }
     }
 

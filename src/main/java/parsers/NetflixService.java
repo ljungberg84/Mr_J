@@ -59,7 +59,6 @@ public class NetflixService extends ServiceHandler {
                     presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
                             " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
 
-
             String title = movieNode.getAttribute("aria-label");
             String url = movieNode.getAttribute("href");
 
@@ -111,7 +110,6 @@ public class NetflixService extends ServiceHandler {
             //browser.close();
         }
     }
-
 
     @Override
     public String toString() {

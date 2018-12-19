@@ -1,7 +1,4 @@
-import model.MyCookieHandler;
 import model.Program;
-import model.Service;
-import model.UserAccount;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -17,19 +14,23 @@ public class ProgramTest {
 
     Program p = Program.getInstance();
 
-    @Before
-    void init(){
-        p.addService("netlfix", new NetflixService());
-    }
+//    @Before
+//    void init(){
+//        //p.addService("netlfix", new NetflixService());
+//    }
 
     @Test
     void startSearchTest(){
+        p.getServices().clear();
+        assertFalse(p.startSearch(""));
+        assertFalse(p.startSearch(null));
+        assertTrue(p.startSearch("alien"));
 
     }
 
     @Test
     void startLogin(){
-        assertFalse(p.startLogin());
+        assertFalse("calling login without acount info",p.startLogin());
     }
 
     @Test
@@ -54,8 +55,6 @@ public class ProgramTest {
         p.addService("test2", null);
         assertEquals("adding null hash value", 2, p.getServices().size());
     }
-
-//--------------------------------------------
 
     @Test
     void servicesShouldContainObject(){
