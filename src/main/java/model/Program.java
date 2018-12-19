@@ -25,7 +25,11 @@ public class Program {
         for (Service service : services.values()) {
             if(service.hasLogin()){
                 System.out.println("login found");
+<<<<<<< HEAD:src/main/java/model/Program.java
                 if(service.hasCookies()){//service.hasCookies()){
+=======
+                if(false){//service.hasCookies()){
+>>>>>>> 38ad242ab35c3c67c28be0fe37488613f919b8f1:src/model/Program.java
                     System.out.println("cookies found ");
                 }
                 else{

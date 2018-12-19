@@ -99,4 +99,9 @@ public class ViaplayService extends ServiceHandler{
             //browser.close();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Viaplay";
+    }
 }

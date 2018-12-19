@@ -22,6 +22,11 @@ public class NetflixService extends ServiceHandler {
     }
 
     @Override
+    public UserAccount getAccount() {
+        return super.getAccount();
+    }
+
+    @Override
     public MovieInfo search(String movieTitle) {
         browser = new ChromeDriver(options);
         //super.search(movieTitle);
@@ -107,4 +112,9 @@ public class NetflixService extends ServiceHandler {
         }
     }
 
+
+    @Override
+    public String toString() {
+        return "Netflix";
+    }
 }
