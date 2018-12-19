@@ -31,7 +31,7 @@ public class ViaplayService extends ServiceHandler{
 
             WebElement movieNode = new WebDriverWait(browser, 2).
                     until(ExpectedConditions.presenceOfElementLocated(By.xpath(
-                            "//a[contains(@href, '" + movieTitle.replace(' ', '-') + "')]")));
+                            "//a[contains(@href, '" + movieTitle.toLowerCase().replace(' ', '-') + "')]")));
 
             String url = movieNode.getAttribute("href");
             if (url.substring(7, 18).equalsIgnoreCase("kundservice"))
