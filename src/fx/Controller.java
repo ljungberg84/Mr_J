@@ -17,6 +17,8 @@ import parsers.*;
 
 public class Controller {
 
+    Program p = Program.getInstance();
+
     @FXML
     ListView<MovieInfo> listView;
     @FXML
@@ -31,7 +33,7 @@ public class Controller {
     @FXML
     ImageView imageView;
 
-    Program p = Program.getInstance();
+
 
 
     public void initialize(){
