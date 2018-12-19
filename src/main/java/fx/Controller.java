@@ -14,7 +14,6 @@ import model.Program;
 import parsers.*;
 
 
-
 public class Controller {
 
     Program p = Program.getInstance();

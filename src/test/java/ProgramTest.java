@@ -1,5 +1,3 @@
-package Test;
-
 import model.MyCookieHandler;
 import model.Program;
 import model.Service;
