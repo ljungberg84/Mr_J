@@ -24,12 +24,8 @@ public class Program {
         boolean login = false;
         for (Service service : services.values()) {
             if(service.hasLogin()){
-                System.out.println("login found");
-<<<<<<< HEAD:src/main/java/model/Program.java
-                if(service.hasCookies()){//service.hasCookies()){
-=======
-                if(false){//service.hasCookies()){
->>>>>>> 38ad242ab35c3c67c28be0fe37488613f919b8f1:src/model/Program.java
+                if(service.hasCookies()){
+                    System.out.println("login found");
                     System.out.println("cookies found ");
                 }
                 else{
@@ -44,6 +40,8 @@ public class Program {
         }
         return login;
     }
+
+
     public void startSearch(String searchFrase){
 
         if (searchFrase==null || searchFrase.equals("")) {

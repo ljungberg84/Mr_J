@@ -103,15 +103,10 @@ public class Controller {
         System.out.println(searchField.getText());
     }
 
-<<<<<<< HEAD:src/main/java/fx/Controller.java
-    public void setStage(){
-      
-    }
-=======
     @FXML
     public void accountButtonHandler(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(Netflix)) {
-            popup(p.services.get("Netflix"));
+            popup(p.getServices().get("Netflix"));
         } else if(actionEvent.getSource().equals(HBO)) {
             popup(p.getServices().get("Hbo"));
         } else if(actionEvent.getSource().equals(Viaplay)) {
@@ -149,8 +144,11 @@ public class Controller {
         service.getAccount().setUserName(username);
         service.getAccount().setPassword(password);
         System.out.println(service + " login details saved.");
+        p.startLogin();
 
     }
 
->>>>>>> 38ad242ab35c3c67c28be0fe37488613f919b8f1:src/fx/Controller.java
+    public void setStage(){
+
+    }
 }
