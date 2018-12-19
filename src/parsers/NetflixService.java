@@ -13,8 +13,12 @@ import java.util.List;
 
 public class NetflixService extends ServiceHandler {
 
-    public NetflixService() {
-        super(new MyCookieHandler("netflix_cookies"), new UserAccount("", ""));
+    public NetflixService(){
+        this(new MyCookieHandler("netflix_cookies"), new UserAccount("", ""));
+    }
+
+    public NetflixService(MyCookieHandler cookieHandler, UserAccount account) {
+        super(cookieHandler, account);
     }
 
     @Override

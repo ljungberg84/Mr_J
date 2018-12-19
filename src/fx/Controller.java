@@ -31,7 +31,7 @@ public class Controller {
     @FXML
     ImageView imageView;
 
-    Program p = new Program();
+    Program p = Program.getInstance();
 
 
     public void initialize(){
