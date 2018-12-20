@@ -1,6 +1,7 @@
 import model.MyCookieHandler;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 
 import static junit.framework.TestCase.fail;
 
@@ -9,7 +10,7 @@ public class MycookieHandlerTest {
     MyCookieHandler cookieHandler = new MyCookieHandler("test");
 
     @Test
-    void saveCookiesExceptionTest(){
+    public void saveCookiesExceptionTest(){
         try{
             cookieHandler.saveCookies(null);
             fail("no exception thrown");
@@ -19,7 +20,7 @@ public class MycookieHandlerTest {
     }
 
     @Test
-    void loadCookiesExceptionTest(){
+    public void loadCookiesExceptionTest(){
         try{
             cookieHandler.loadCookies(null);
             fail("no exception thrown");
@@ -27,5 +28,4 @@ public class MycookieHandlerTest {
             System.out.println("successfull exception thrown");
         }
     }
-
 }
