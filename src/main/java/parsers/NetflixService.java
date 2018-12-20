@@ -13,8 +13,17 @@ import java.util.List;
 
 public class NetflixService extends ServiceHandler {
 
-    public NetflixService() {
-        super(new MyCookieHandler("netflix_cookies"), new UserAccount("", ""));
+    public NetflixService(){
+        this(new MyCookieHandler("netflix_cookies"), new UserAccount("", ""));
+    }
+
+    public NetflixService(MyCookieHandler cookieHandler, UserAccount account) {
+        super(cookieHandler, account);
+    }
+
+    @Override
+    public UserAccount getAccount() {
+        return super.getAccount();
     }
 
     @Override
@@ -49,7 +58,6 @@ public class NetflixService extends ServiceHandler {
             WebElement movieNode = new WebDriverWait(browser, 3).until(ExpectedConditions.
                     presenceOfElementLocated(By.xpath("//a[translate(@aria-label," +
                             " 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='" + movieTitle.toLowerCase() + "']")));
-
 
             String title = movieNode.getAttribute("aria-label");
             String url = movieNode.getAttribute("href");
@@ -103,4 +111,8 @@ public class NetflixService extends ServiceHandler {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Netflix";
+    }
 }

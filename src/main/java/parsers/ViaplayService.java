@@ -42,27 +42,17 @@ public class ViaplayService extends ServiceHandler{
             String imgUrl = movieNode.getAttribute("style");
             imgUrl = imgUrl.substring(imgUrl.indexOf("(") + 2, imgUrl.indexOf("?"));
 
-            //System.out.println("imgUrl: " + imgUrl);
-
-            System.out.println(url);
-//            System.out.println(url.length());
-//            System.out.println("--------------------------");
-//            System.out.println(movieTitle + " was found on Viaplay");
-//            System.out.println("Url: " + url);
-////            System.out.println("--------------------------");
-//
             return new MovieInfo(movieTitle, url, imgUrl, "Viaplay.jpg");
 
         } catch (TimeoutException e) {
             System.out.println(movieTitle + " was not found on Viaplay");
-            //e.printStackTrace();
 
         } catch (Exception e) {
             System.out.println("something went wrong");
             System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
-            //browser.close();
+            browser.close();
         }
         return null;
     }
@@ -96,7 +86,12 @@ public class ViaplayService extends ServiceHandler{
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            //browser.close();
+            browser.close();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Viaplay";
     }
 }

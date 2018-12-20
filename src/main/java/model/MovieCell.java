@@ -65,7 +65,6 @@ public class MovieCell extends ListCell<MovieInfo> {
             sourceImageView.setImage(new Image("file:src//main//resources//" + item.getSource()));
 
             setGraphic(vbox);
-
         }
     }
 }

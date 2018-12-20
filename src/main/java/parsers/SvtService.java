@@ -46,7 +46,7 @@ public class SvtService extends ServiceHandler {
             String url = urlElement.getAttribute("href");
             System.out.println("Returning movieInfo object");
 
-            return new MovieInfo(movieTitle, url, imageUrl, "SVT play.png");
+            return new MovieInfo(movieTitle, url, imageUrl, "Svt play.png");
 
         }catch(TimeoutException e){
             //System.out.println(movieTitle + " was not found on SVTPlay");
