@@ -14,6 +14,5 @@ If you are using the commando line all you need to do to run our program, is:
 When you run the program you should be able to type in your account details for the various sites. Netflix requires log-in in order to search. HBO and Viaplay do not require log-in to search but it is of course required in order to watch a show. SVT is the only platform which doesn't require log-in. It is also possible to type in your account details directly in the code. The program uses cookies which allow a user to remain logged in.
 
 We hope you enjoy it!
-test
 
                                                                                                    Bartek, Carl, Martin, Petros
